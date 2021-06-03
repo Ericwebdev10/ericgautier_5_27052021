@@ -8,19 +8,66 @@ Le code HTTP. Il s’agit d’un code numérique qui vous indique comment s’es
 500 : indique une erreur avec le service web
  */
 
+let i = 1;
 
-fetch("http://localhost:3000/api/teddies")
+async function getDatas(){
+    let result = await fetch(url);
+    console.log(result);
+    if (result.status == 200){
+        console.log("server status OK : " + result.status);
+    }else{
+        console.log("server not reachable : " + result.status);
+        document.getElementById("maintitle").innerHTML =   `<div class="col-lg-12 text-center text-danger bg-warning">
+                                                            <h1 class="my-4">Erreur connection serveur : ${result.status}</h1>
+                                                            `;
+    //                                                        alert("server not reachable : " + result.status);
+    }
+    return result.json();
+}
+
+getDatas()
+    .then(data => {
+        fetch(url)
+        .then( data => data.json())
+        .then( jsonListArticles => {
+            console.log(jsonListArticles); // debug to delete
+            for (let jsonArticle of jsonListArticles) {
+                let article = new Article(jsonArticle);
+                console.log(i++); // debug to delete
+                console.log(article); // debug to delete
+                
+                document.querySelector(".row").innerHTML += `<div class="col-lg-4 col-md-6 mb-4">
+                                                                <div class="card h-100">
+                                                                    <a href="#!" class="stretched-link"><img class="card-img-top" src=${article.imageUrl} alt="image ourson"/></a>
+                                                                    <div class="card-body">
+                                                                        <h4 class="card-title"><a href="#!">${article.name}"</a></h4>
+                                                                        <h5>${article.price} €</h5>
+                                                                        <p class="card-text">${article.description}</p>
+                                                                    </div>
+                                                                    <div class="card-footer"><small class="text-muted">${article._id}</small></div>
+                                                                </div>
+                                                            </div>
+                                                            `;
+            }
+        });
+    });
+
+/*
+fetch(url)
     .then( data => data.json())
-    .then( jsonListArticle => {
-        console.log(jsonListArticle);
-        for (let jsonArticle of jsonListArticle) {
+    .then( jsonListArticles => {
+        console.log(jsonListArticles); // debug to delete
+        for (let jsonArticle of jsonListArticles) {
             let article = new Article(jsonArticle);
+            //console.log(i++); // debug to delete
+            //console.log(article); // debug to delete
+             
             document.querySelector(".row").innerHTML += `<div class="col-lg-4 col-md-6 mb-4">
                                                             <div class="card h-100">
-                                                                <a href="#!"><img class="card-img-top" src=${article.imageUrl} alt=${article.imageUrl} width="150"/></a>
+                                                                <a href="#!" class="stretched-link"><img class="card-img-top" src=${article.imageUrl} alt="image ourson"/></a>
                                                                 <div class="card-body">
                                                                     <h4 class="card-title"><a href="#!">${article.name}"</a></h4>
-                                                                    <h5>${article.price/100} €</h5>
+                                                                    <h5>${article.price} €</h5>
                                                                     <p class="card-text">${article.description}</p>
                                                                 </div>
                                                                 <div class="card-footer"><small class="text-muted">${article._id}</small></div>
@@ -28,4 +75,4 @@ fetch("http://localhost:3000/api/teddies")
                                                         </div>
                                                         `;
         }
-    });
+    });*/
