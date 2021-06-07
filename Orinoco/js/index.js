@@ -1,7 +1,30 @@
-//-----------------------------------------Javascipt for index.html page----------------------------------------------------
+//-----------------------------------------Javascipt for index.html page------------------------------------------
 
 
 //-----------------------------------------check server status----------------------------------------------------
+
+async function testServerConnection(){
+    await fetch(url).then((response) => {
+        if (response.status !=200) { 
+            //server respond but there is another failure 
+            console.log("erreur dans le if  => " + response.status + " " + response.statusText);
+            throw new Error(response.status + " " + response.statusText);
+        }
+        return response;
+    }).then((returnedResponse) => {
+       // Connection OK
+        document.getElementById("mainTitle").innerHTML =    `<h1 class="my-4"></h1>
+                                                            `;
+       console.log("connection OK")
+//       getDatas();
+    }).catch((error) => {
+      // Catch when server does not repond
+        document.getElementById("mainTitle").innerHTML =    `<div class="col-lg-12 text-center text-danger bg-warning">
+                                                            <h1 class="my-4">Erreur connection => ${error}</h1>
+                                                            `;
+      console.log("erreur dans le .catch => " + error)
+    });
+};
 
 testServerConnection();
 
@@ -13,13 +36,10 @@ async function getDatas(){
     let result = await fetch(url);
     //console.log(result);
     if (result.status == 200){
-//        console.log("server status OK : " + result.status); // debug to delete
+        console.log("getDatas : " + result.status); // debug to delete
     }else{
-/*        console.log("server not reachable : " + result.status); // debug to delete
-        document.getElementById("mainTitle").innerHTML =   `<div class="col-lg-12 text-center text-danger bg-warning">
-                                                            <h1 class="my-4">Erreur connection : ${result.status}</h1>
-                                                            `;
-        alert("connection error : " + result.status);*/
+        console.log("getDatas : " + result.status); // debug to delete
+
     }
     return result.json();
 }

@@ -36,4 +36,8 @@ De même, il y a deux opérateurs d'inégalité,   !=  et   !==  , avec la même
 ||    – OU logique – pour vérifier si au moins une condition est vraie ;
 !    – NON logique – pour vérifier si une condition n'est pas vraie. 
 
+
+
+//      alert("Server connection failed");
+
 */
