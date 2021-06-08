@@ -1,28 +1,26 @@
 //-----------------------------------------Javascipt for index.html page------------------------------------------
 
-
-//-----------------------------------------check server status----------------------------------------------------
+//-----------------------------------------Check server connection----------------------------------------------------
 
 async function testServerConnection(){
     await fetch(url).then((response) => {
-        if (response.status !=200) { 
-            //server respond but there is another failure 
-            console.log("erreur dans le if  => " + response.status + " " + response.statusText);
+        if (response.status === 200) {     //server response is OK = 200 
+            console.log("debug id1 " + response.status + " " + response.statusText); // debug to delete
+       }else{                          //server response is NOT 200
+            console.log("debug id2 " + response.status + " " + response.statusText); // debug to delete
             throw new Error(response.status + " " + response.statusText);
-        }
+         }
         return response;
-    }).then((returnedResponse) => {
-       // Connection OK
-        document.getElementById("mainTitle").innerHTML =    `<h1 class="my-4"></h1>
-                                                            `;
-       console.log("connection OK")
+    })
+    .then((returnedResponse) => {     // Connection OK
+        document.getElementById("mainTitle").innerHTML =    `<h1 class="my-4"></h1>`; // clear text
+        console.log("debug id3 connection OK") // debug to delete
 //       getDatas();
-    }).catch((error) => {
-      // Catch when server does not repond
+    })
+    .catch((error) => {               // Catch error when server does not repond
         document.getElementById("mainTitle").innerHTML =    `<div class="col-lg-12 text-center text-danger bg-warning">
-                                                            <h1 class="my-4">Erreur connection => ${error}</h1>
-                                                            `;
-      console.log("erreur dans le .catch => " + error)
+                                                            <h1 class="my-4">Erreur connection => ${error}</h1>`;
+        console.log("debug id4 .catch => " + error) // debug to delete
     });
 };
 
