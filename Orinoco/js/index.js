@@ -16,7 +16,8 @@ async function testServerConnection(){
         document.getElementById("mainTitle").innerHTML =    `<h1 class="my-4"></h1>`; // clear index.html default text "connection en cours..."
         console.log("debug index id3 connection OK " + returnedResponse.status) // debug to delete
         displaySpecialOffer(true);              //show banner (true / false)
-        getAllDatas();                             //populate template
+        displayTitle(true);                     //show title (true / false)
+        getAllDatas();                          //populate template
     })
     .catch((error) => {                         // Catch error when server does not repond
         document.getElementById("mainTitle").innerHTML =    `<div class="col-lg-12 text-center text-danger bg-warning">
@@ -53,20 +54,3 @@ function getAllDatas(){
     });
 };
 
-//-----------------------------------------function display banner----------------------------------------------------
-
-function displaySpecialOffer(visible){
-    if (visible === true) {
-    document.querySelector(".row").innerHTML += `<div class="col-lg-12 text-center alert alert-info alert-dismissible fade show mt-3 shadow-lg" role="alert">
-                                                    <h5 class="alert-heading">Offre spéciale : -20% avec le code Orinoco20</h5>
-                                                    <p> + Livraison offerte !!! </p>
-                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-
-                                                <div class="col-lg-12 text-center">
-                                                    <h1 id="mainTitle" class="my-4">Découvrez notre nouvelle collection!</h1>
-                                                </div>`;
-    }
-};
