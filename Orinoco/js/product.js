@@ -1,6 +1,7 @@
 //-----------------------------------------Javascipt for product.html page------------------------------------------
 
-//-----------------------------------------function get product details----------------------------------------------------
+//-----------------------------------------function get product details---------------------------------------------
+
 let productId = new URL(window.location.href).searchParams.get('id');
 
 function getProductDetails(){
@@ -30,7 +31,7 @@ function getProductDetails(){
                                                         </div>
                                                     </div>`;
 
-        //loop to add options
+        //loop to add options => fct show option
         ArticleOption = "";
         j = 0; 
 //        console.log(article.varnish.length); // debug to delete
@@ -44,6 +45,12 @@ function getProductDetails(){
     });
 };
 
-getProductDetails();
-displaySpecialOffer(true);              //show banner (true / false)
+//-----------------------------------------function to display all items----------------------------------------------------
 
+
+//-----------------------------------------function to create cards with item's details-------------------------------------
+
+
+
+displaySpecialOffer(true);              //show banner (true / false)
+getProductDetails();
