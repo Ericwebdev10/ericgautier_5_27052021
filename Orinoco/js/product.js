@@ -1,6 +1,29 @@
 //-----------------------------------------Javascipt for product.html page------------------------------------------
 
+//----------------------------------------- function to check server connection--------------------------------------------
+async function testServerConnection(){
+    await fetch(url).then((response) => {
+        if (response.status === 200) {          //server response is OK = 200 
+//            console.log("debug product id1 " + response.status + " " + response.statusText); // debug to delete
+       }else{                                   //server response is NOT OK != 200
+            throw new Error(response.status + " " + response.statusText);
+         }
+        return response;
+    })
+    .then((returnedResponse) => {               // Connection OK
+        updateMainTitle(returnedResponse, true);
+        getProductDetails(productId);
+        displaySpecialOffer(true);              //show banner (true / false)
+
+    })
+    .catch((error) => {                         // Catch error when server does not repond
+        updateMainTitle(error, false);
+    });
+};
+
+
 //-----------------------------------------function to get one product's details---------------------------------------------
+const productId = new URL(window.location.href).searchParams.get('id'); //get back the id from the full href address https://developer.mozilla.org/fr/docs/Web/API/URL
 
 function getProductDetails(urlForProductId){
     fetch(url + "/" + urlForProductId)
@@ -13,7 +36,6 @@ function getProductDetails(urlForProductId){
 
 
 //-----------------------------------------function to create one card with product's details-------------------------------------
-
 function diplayOneCard(article){
     numberOfOption = article.varnish.length;   
     document.querySelector(".row").innerHTML += `<div class="col-lg-6 col-md-6 mb-4 text-center mx-auto">
@@ -40,7 +62,6 @@ function diplayOneCard(article){
 
 
 //-----------------------------------------function to add product's options-------------------------------------
-
 function addProductOptions(article){
     //loop to add options => fct show option
     ArticleOption = "";
@@ -54,8 +75,4 @@ function addProductOptions(article){
 
 
 //---------------------------------------------Sequence----------------------------------------------------------------
-
-displaySpecialOffer(true);              //show banner (true / false)
-
-const productId = new URL(window.location.href).searchParams.get('id'); //get back the id from the full href address https://developer.mozilla.org/fr/docs/Web/API/URL
-getProductDetails(productId);
+testServerConnection();

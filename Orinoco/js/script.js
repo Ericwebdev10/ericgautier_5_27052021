@@ -12,6 +12,7 @@ function displaySpecialOffer(visible){
     }
 };
 
+
 //-----------------------------------------function display title----------------------------------------------------
 
 function displayTitle(visible){
@@ -21,3 +22,16 @@ function displayTitle(visible){
                                                 </div>`;
     }
 };
+
+
+//-----------------------------------------function to handle title error-------------------------------------
+function updateMainTitle(error, clear){
+    if (clear === true){
+        document.getElementById("mainTitle").innerHTML =    `<h1 class="my-4"></h1>`; // clear default text "connection en cours..."
+
+    }else {
+        document.getElementById("mainTitle").innerHTML =    `<div class="col-lg-12 text-center text-danger bg-warning">
+                                                        <h1 class="my-4">Erreur connection => ${error}</h1>`;
+    };
+};
+
