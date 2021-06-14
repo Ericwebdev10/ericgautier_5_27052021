@@ -11,13 +11,13 @@ async function testServerConnection(){
         return response;
     })
     .then((returnedResponse) => {               // Connection OK
-        updateMainTitle(returnedResponse, true);
+        updateConnectionMessage(returnedResponse, true);//clear title
         displayAllDatas(returnedResponse);      //populate template
         displaySpecialOffer(true);              //show banner (true / false)
         displayTitle(true);                     //show title (true / false)
     })
     .catch((error) => {                         // Catch error when server does not repond
-        updateMainTitle(error, false);
+        updateConnectionMessage(error, false);
     });
 };
 

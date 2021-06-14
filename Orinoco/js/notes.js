@@ -45,4 +45,11 @@ https://developer.mozilla.org/fr/docs/Web/API/URL
 var parsedUrl = new URL(window.location.href);
 console.log(parsedUrl.searchParams.get("id")); // 123
 
+                                                            <div class="form-group">
+                                                                <select class="custom-select options" required>
+                                                                    <option value="">Couleurs disponibles : ${numberOfOption}</option>
+                                                                </select>
+                                                                <div class="invalid-feedback">Example invalid custom select feedback</div>
+                                                            </div>
+
 */

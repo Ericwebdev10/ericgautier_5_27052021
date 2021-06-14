@@ -11,19 +11,19 @@ async function testServerConnection(){
         return response;
     })
     .then((returnedResponse) => {               // Connection OK
-        updateMainTitle(returnedResponse, true);
+        updateConnectionMessage(returnedResponse, true);
         getProductDetails(productId);
         displaySpecialOffer(true);              //show banner (true / false)
 
     })
     .catch((error) => {                         // Catch error when server does not repond
-        updateMainTitle(error, false);
+        updateConnectionMessage(error, false);
     });
 };
 
 
 //-----------------------------------------function to get one product's details---------------------------------------------
-const productId = new URL(window.location.href).searchParams.get('id'); //get back the id from the full href address https://developer.mozilla.org/fr/docs/Web/API/URL
+let productId = new URL(window.location.href).searchParams.get('id'); //get back the id from the full href address https://developer.mozilla.org/fr/docs/Web/API/URL
 
 function getProductDetails(urlForProductId){
     fetch(url + "/" + urlForProductId)
@@ -46,14 +46,33 @@ function diplayOneCard(article){
                                                             <h5 class="text-right">${article.price/100} €</h5>
                                                             <p class="card-text">${article.description}</p>
 
-                                                            <div class="form-group">
-                                                                <select class="custom-select options" required>
-                                                                    <option value="">Couleurs disponibles : ${numberOfOption}</option>
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-prepend">
+                                                                    <label class="input-group-text" for="inputGroupColor">Couleurs</label>
+                                                                </div>
+                                                                <select class="custom-select options" id="inputGroupColor">                                   
                                                                 </select>
-                                                                <div class="invalid-feedback">Example invalid custom select feedback</div>
+                                                            </div>
+                                                                    
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-prepend">
+                                                                    <label class="input-group-text" for="inputGroupQuantity">Quantité</label>
+                                                                </div>
+                                                                <select class="custom-select" id="inputGroupQuantity">
+                                                                    <option selected>1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="5">5</option>
+                                                                    <option value="6">6</option>
+                                                                    <option value="7">7</option>
+                                                                    <option value="8">8</option>
+                                                                    <option value="9">9</option>
+                                                                    <option value="10">10</option>
+                                                                </select>
                                                             </div>
 
-                                                            <a href="#!" class="btn btn-primary">Ajouter au Panier</a>
+                                                            <a href="#!" class="btn btn-primary">Ajouter au panier</a>
                                                         </div>
                                                         <div class="card-footer"><small class="text-muted">${article._id}</small></div>
                                                     </div>
