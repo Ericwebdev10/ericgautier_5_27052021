@@ -23,7 +23,7 @@ async function testServerConnection(){
 
 
 //-----------------------------------------function to get one product's details---------------------------------------------
-let productId = new URL(window.location.href).searchParams.get('id'); //get back the id from the full href address https://developer.mozilla.org/fr/docs/Web/API/URL
+let productId = new URL(window.location.href).searchParams.get('id'); //extract id from the full href address https://developer.mozilla.org/fr/docs/Web/API/URL
 
 function getProductDetails(urlForProductId){
     fetch(url + "/" + urlForProductId)
@@ -72,7 +72,7 @@ function diplayOneCard(article){
                                                                 </select>
                                                             </div>
 
-                                                            <a href="#!" class="btn btn-primary">Ajouter au panier</a>
+                                                            <a href="shoppingcart.html" class="btn btn-primary">Ajouter au panier</a>
                                                         </div>
                                                         <div class="card-footer"><small class="text-muted">${article._id}</small></div>
                                                     </div>

@@ -52,4 +52,7 @@ console.log(parsedUrl.searchParams.get("id")); // 123
                                                                 <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                             </div>
 
+inputs form
+https://getbootstrap.com/docs/4.3/components/forms/#range-inputs
+
 */
