@@ -92,6 +92,5 @@ function addProductOptions(article){
     };
 };
 
-
 //---------------------------------------------Sequence----------------------------------------------------------------
 testServerConnection();
