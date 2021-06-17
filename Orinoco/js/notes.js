@@ -56,3 +56,51 @@ inputs form
 https://getbootstrap.com/docs/4.3/components/forms/#range-inputs
 
 */
+
+/* //https://developer.mozilla.org/fr/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
+function storageAvailable(type) {
+    try {
+        var storage = window[type],
+            x = '__storage_test__';
+        storage.setItem(x, "blabla");
+        storage.removeItem(x);
+        return true;
+    }
+    catch(e) {
+        return e instanceof DOMException && (
+            // everything except Firefox
+            e.code === 22 ||
+            // Firefox
+            e.code === 1014 ||
+            // test name field too, because code might not be present
+            // everything except Firefox
+            e.name === 'QuotaExceededError' ||
+            // Firefox
+            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+            // acknowledge QuotaExceededError only if there's something already stored
+            storage.length !== 0;
+    }
+};
+function test(){
+    if (storageAvailable('localStorage')) {
+        // Nous pouvons utiliser localStorage
+    }
+    else {
+        // Malheureusement, localStorage n'est pas disponible
+    };
+};
+function handleLocalStorage(){
+    if(!localStorage.getItem('bgcolor')) {
+        populateStorage();
+    } else {
+        setStyles();
+    };
+};
+function setStyles() {
+    var currentColor = localStorage.getItem('bgcolor');
+    var currentFont = localStorage.getItem('font');
+    var currentImage = localStorage.getItem('image');
+
+};*/
+
+

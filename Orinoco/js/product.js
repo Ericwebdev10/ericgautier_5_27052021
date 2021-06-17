@@ -40,25 +40,24 @@ function diplayOneCard(article){
     numberOfOption = article.varnish.length;   
     document.querySelector(".row").innerHTML += `<div class="col-lg-6 col-md-6 mb-4 text-center mx-auto">
                                                     <div class="card h-100">
-                                                        <img class="card-img-top" src=${article.imageUrl} alt="image objet"/>
+                                                        <img id="article_imageUrl" class="card-img-top" src=${article.imageUrl} alt="image objet"/>
                                                         <div class="card-body">
-                                                            <h4 class="card-title">${article.name}"</h4>
-                                                            <h5 class="text-right">${article.price/100} €</h5>
-                                                            <p class="card-text">${article.description}</p>
+                                                            <h4 id="article_name" class="card-title">${article.name}"</h4>
+                                                            <h5 id="article_price" class="text-right">${article.price/100} €</h5>
+                                                            <p id="article_description" class="card-text">${article.description}</p>
 
                                                             <div class="input-group mb-3">
                                                                 <div class="input-group-prepend">
-                                                                    <label class="input-group-text" for="inputGroupColor">Couleurs</label>
+                                                                    <label class="input-group-text" for="article_option">Couleurs</label>
                                                                 </div>
-                                                                <select class="custom-select options" id="inputGroupColor">                                   
-                                                                </select>
+                                                                <select class="custom-select options" id="article_option"></select>
                                                             </div>
                                                                     
                                                             <div class="input-group mb-3">
                                                                 <div class="input-group-prepend">
-                                                                    <label class="input-group-text" for="inputGroupQuantity">Quantité</label>
+                                                                    <label class="input-group-text" for="article_quantity">Quantité</label>
                                                                 </div>
-                                                                <select class="custom-select" id="inputGroupQuantity">
+                                                                <select class="custom-select" id="article_quantity">
                                                                     <option selected>1</option>
                                                                     <option value="2">2</option>
                                                                     <option value="3">3</option>
@@ -71,18 +70,26 @@ function diplayOneCard(article){
                                                                     <option value="10">10</option>
                                                                 </select>
                                                             </div>
-
-                                                            <a href="shoppingcart.html" class="btn btn-primary">Ajouter au panier</a>
+                                                            <div id="ButtonAddToCart" class="btn btn-block btn-primary mb-3">Ajouter au panier</div>
+                                                            <div class="m-1">
+                                                                <a href="index.html" class="btn btn-secondary m-1"> Continuer </a>
+                                                                <a href="shoppingcart.html" class="btn btn-secondary m-1">Voir le panier</a>
+                                                            </div>
                                                         </div>
-                                                        <div class="card-footer"><small class="text-muted">${article._id}</small></div>
+                                                        <div class="card-footer"><small class="text-muted" id="article_id">${article._id}</small></div>
                                                     </div>
                                                 </div>`;
+
+                                                // add Event Listener to ButtonAddToCart
+                                                document
+                                                .getElementById("ButtonAddToCart")
+                                                .addEventListener("click", function() {addToCart(article);}, false);
 };
 
 
 //-----------------------------------------function to add product's options-------------------------------------
 function addProductOptions(article){
-    //loop to add options => fct show option
+    //loop to add options
     ArticleOption = "";
     j = 0; 
     for (let ArticleOption of article.varnish) {                                      
@@ -91,6 +98,27 @@ function addProductOptions(article){
         j++;
     };
 };
+
+//-----------------------------------------function to add item to cart-------------------------------------
+//https://developer.mozilla.org/fr/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
+
+function addToCart(addArticle) {
+    let quantity = document.getElementById("article_quantity").value;
+    let e = document.getElementById("article_option"); 
+    let varnish = e.options[e.selectedIndex].text;
+    
+    let addArticleObjet = {
+        _id : addArticle._id,
+        description : addArticle.description,
+        imageUrl : addArticle.imageUrl,
+        name : addArticle.name,
+        price : addArticle.price / 100, // format price
+        quantity : quantity,
+        varnish : varnish,
+    };
+    localStorage.setItem(addArticle._id, JSON.stringify(addArticleObjet));
+};
+
 
 //---------------------------------------------Sequence----------------------------------------------------------------
 testServerConnection();

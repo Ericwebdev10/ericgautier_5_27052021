@@ -30,13 +30,13 @@ function displayAllDatas(){
 //        console.log(jsonListArticles); // debug to delete            
         for (let jsonArticle of jsonListArticles) {
             let article = new Article(jsonArticle);
-            createCards(article);            
+            createCard(article);            
         }
     });
 };
 
 //-----------------------------------------function to create cards with item's details-------------------------------------
-function createCards(article){
+function createCard(article){
     document.querySelector(".row").innerHTML += 
         `<div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
