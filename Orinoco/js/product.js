@@ -99,29 +99,40 @@ function addProductOptions(article){
 };
 
 
-//-----------------------------------------function to add item to cart-------------------------------------
-//https://developer.mozilla.org/fr/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
-
+//-----------------------------------------function to add item to cart-----------------------------------------
 function checkArticleInLocalStorage(selectedArticle, response) {
-    if (JSON.parse(localStorage.getItem(selectedArticle._id))) {
-        addArticleToLocalStorage(selectedArticle)
-        response = "ArticleAdded"
+    let e = document.getElementById("article_option"); 
+    const varnish = e.options[e.selectedIndex].text;
+    arrayOfArticlesInCart = JSON.parse(localStorage.getItem('articlesInCart')); //get back articles already in localStorage
+    
+    if (arrayOfArticlesInCart === null) {
+        addArticleToLocalStorage(selectedArticle);
+        response = "ArticleAdded";
         console.log("debug id1 " + response);
 
     } else{
-        //changeArticleInLocalStorage
-        response = "ArticleModified"
-        console.log("debug id2 " + response);
+        arrayOfArticlesInCart.forEach(articlesInCart => { // loop to check each item in the localStorage
+            if (selectedArticle._id === articlesInCart._id && varnish === articlesInCart.varnish) {                
+                changeArticleInLocalStorage(selectedArticle);
+                response = "ArticleModified";
+                console.log("debug id2 " + response);
+            }else {
+                addArticleToLocalStorage(selectedArticle);
+                response = "ArticleAdded";
+                console.log("debug id3 " + response);
+
+            };
+        });
     };
     return response;
 };
 
-//-----------------------------------------function to add item to LocalStorage-------------------------------------
+//-----------------------------------------function to add an article to LocalStorage-------------------------------------
 function addArticleToLocalStorage(selectedArticle) {
-    const arrayOfArticleInCart = [];
-    let quantity = document.getElementById("article_quantity").value;
+    const arrayOfArticlesInCart = [];
+    const quantity = document.getElementById("article_quantity").value;
     let e = document.getElementById("article_option"); 
-    let varnish = e.options[e.selectedIndex].text;
+    const varnish = e.options[e.selectedIndex].text;
     
     let selectedArticleArray = {
         _id : selectedArticle._id,
@@ -132,11 +143,16 @@ function addArticleToLocalStorage(selectedArticle) {
         quantity : quantity,
         varnish : varnish,
     };
-    arrayOfArticleInCart.push(selectedArticleArray)
-    localStorage.setItem("articleInCart", JSON.stringify(arrayOfArticleInCart));
-
+    arrayOfArticlesInCart.push(selectedArticleArray)
+    localStorage.setItem("articlesInCart", JSON.stringify(arrayOfArticlesInCart));
 };
 
+//-----------------------------------------function to change qty of an existing article in LocalStorage-------------------------------------
+
+function changeArticleInLocalStorage() {
+
+
+};
 
 //---------------------------------------------Sequence----------------------------------------------------------------
 testServerConnection();
