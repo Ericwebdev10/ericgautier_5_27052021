@@ -79,11 +79,10 @@ function diplayOneCard(article){
                                                         <div class="card-footer"><small class="text-muted" id="article_id">${article._id}</small></div>
                                                     </div>
                                                 </div>`;
-
-                                                // add Event Listener to ButtonAddToCart
-                                                document
+                                                
+                                                document // add Event Listener to ButtonAddToCart
                                                 .getElementById("ButtonAddToCart")
-                                                .addEventListener("click", function() {addToCart(article);}, false);
+                                                .addEventListener("click", function() {checkArticleInLocalStorage(article);}, false);
 };
 
 
@@ -99,24 +98,43 @@ function addProductOptions(article){
     };
 };
 
+
 //-----------------------------------------function to add item to cart-------------------------------------
 //https://developer.mozilla.org/fr/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
 
-function addToCart(addArticle) {
+function checkArticleInLocalStorage(selectedArticle, response) {
+    if (JSON.parse(localStorage.getItem(selectedArticle._id))) {
+        addArticleToLocalStorage(selectedArticle)
+        response = "ArticleAdded"
+        console.log("debug id1 " + response);
+
+    } else{
+        //changeArticleInLocalStorage
+        response = "ArticleModified"
+        console.log("debug id2 " + response);
+    };
+    return response;
+};
+
+//-----------------------------------------function to add item to LocalStorage-------------------------------------
+function addArticleToLocalStorage(selectedArticle) {
+    const arrayOfArticleInCart = [];
     let quantity = document.getElementById("article_quantity").value;
     let e = document.getElementById("article_option"); 
     let varnish = e.options[e.selectedIndex].text;
     
-    let addArticleObjet = {
-        _id : addArticle._id,
-        description : addArticle.description,
-        imageUrl : addArticle.imageUrl,
-        name : addArticle.name,
-        price : addArticle.price / 100, // format price
+    let selectedArticleArray = {
+        _id : selectedArticle._id,
+        description : selectedArticle.description,
+        imageUrl : selectedArticle.imageUrl,
+        name : selectedArticle.name,
+        price : selectedArticle.price / 100, // format price
         quantity : quantity,
         varnish : varnish,
     };
-    localStorage.setItem(addArticle._id, JSON.stringify(addArticleObjet));
+    arrayOfArticleInCart.push(selectedArticleArray)
+    localStorage.setItem("articleInCart", JSON.stringify(arrayOfArticleInCart));
+
 };
 
 
