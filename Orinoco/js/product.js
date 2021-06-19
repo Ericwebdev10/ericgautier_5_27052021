@@ -1,4 +1,6 @@
 //-----------------------------------------Javascipt for product.html page------------------------------------------
+let arrayOfArticlesInCart = [];
+let quantity = 0;
 
 
 //----------------------------------------- function to check server connection--------------------------------------------
@@ -102,37 +104,44 @@ function addProductOptions(article){
 
 //-----------------------------------------function to add item to cart-----------------------------------------
 function checkArticleInLocalStorage(selectedArticle, response) {
+    let cartIsEmpty = false;
+    let itemExistInCart = false;
     let e = document.getElementById("article_option"); 
     const varnish = e.options[e.selectedIndex].text;
     arrayOfArticlesInCart = JSON.parse(localStorage.getItem('articlesInCart')); //get back articles already in localStorage
-    
-    if (arrayOfArticlesInCart === null) {
-        cartisEmpty = true;
-        addArticleToLocalStorage(selectedArticle,cartisEmpty);
-        response = "ArticleAdded";
+    quantity = document.getElementById("article_quantity").value;
+
+
+    if (arrayOfArticlesInCart === null) {                                       //case localStorage is blank
+        cartIsEmpty = true;
+        addArticleToLocalStorage(selectedArticle, cartIsEmpty);
+        response = "cart empty => Article Added";
         console.log("debug id1 " + response);
 
-    } else{
-        arrayOfArticlesInCart.forEach(articlesInCart => { // loop to check each item in the localStorage
+    } else{                                                                     //case localStorage has 1 or more items
+        cartIsEmpty = false;
+        itemExistInCart = false;
+        arrayOfArticlesInCart.forEach(articlesInCart => {                       //loop to check if the same item with same varnish already exist in localStorage
             if (selectedArticle._id === articlesInCart._id && varnish === articlesInCart.varnish) {                
-                changeArticleInLocalStorage(selectedArticle);
-                response = "ArticleModified";
+                articlesInCart.quantity = parseInt(articlesInCart.quantity) + parseInt(quantity);   //if item found then change qty
+                localStorage.setItem("articlesInCart", JSON.stringify(arrayOfArticlesInCart));                
+                itemExistInCart = true;
+                response = "cart NOT empty + same item exist => Article Modified";
                 console.log("debug id2 " + response);
-            }else {
-                addArticleToLocalStorage(selectedArticle);
-                response = "ArticleAdded";
-                console.log("debug id3 " + response);
-
-            };
+            }
         });
+        if (cartIsEmpty === false && itemExistInCart === false) {               //if item was not found in loop above                                                       
+            addArticleToLocalStorage(selectedArticle, cartIsEmpty);
+            response = "cart NOT empty + item not found => Article Added";
+            console.log("debug id3 " + response);
+        };
     };
     return response;
 };
 
 //-----------------------------------------function to add an article to LocalStorage-------------------------------------
 function addArticleToLocalStorage(selectedArticle, cartIsEmpty) {
-    let arrayOfArticlesInCart = [];
-    const quantity = document.getElementById("article_quantity").value;
+    quantity = document.getElementById("article_quantity").value;
     let e = document.getElementById("article_option"); 
     const varnish = e.options[e.selectedIndex].text;
     
@@ -146,21 +155,18 @@ function addArticleToLocalStorage(selectedArticle, cartIsEmpty) {
         varnish : varnish,
     };
     
-    if (cartIsEmpty = true) {     //add item if localStorage is empty (=null)
+    if (cartIsEmpty === true) {         //initialise array if localStorage is empty (=null)
+        arrayOfArticlesInCart = [];
         arrayOfArticlesInCart.push(selectedArticleArray)
         localStorage.setItem("articlesInCart", JSON.stringify(arrayOfArticlesInCart));
-    }else{                      //push item
+//        console.log("debug id4 cartIsEmpty " + cartIsEmpty);
+    }else{                              //add new array item 
         arrayOfArticlesInCart.push(selectedArticleArray)
         localStorage.setItem("articlesInCart", JSON.stringify(arrayOfArticlesInCart));
+//        console.log("debug id5 cartIsEmpty " + cartIsEmpty);
     };
 };
 
-//-----------------------------------------function to change qty of an existing article in LocalStorage-------------------------------------
-
-function changeArticleInLocalStorage() {
-
-
-};
 
 //---------------------------------------------Sequence----------------------------------------------------------------
 testServerConnection();
