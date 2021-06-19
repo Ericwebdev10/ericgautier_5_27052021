@@ -1,5 +1,6 @@
 //-----------------------------------------Javascipt for product.html page------------------------------------------
 
+
 //----------------------------------------- function to check server connection--------------------------------------------
 async function testServerConnection(){
     await fetch(url).then((response) => {
@@ -106,7 +107,8 @@ function checkArticleInLocalStorage(selectedArticle, response) {
     arrayOfArticlesInCart = JSON.parse(localStorage.getItem('articlesInCart')); //get back articles already in localStorage
     
     if (arrayOfArticlesInCart === null) {
-        addArticleToLocalStorage(selectedArticle);
+        cartisEmpty = true;
+        addArticleToLocalStorage(selectedArticle,cartisEmpty);
         response = "ArticleAdded";
         console.log("debug id1 " + response);
 
@@ -128,8 +130,8 @@ function checkArticleInLocalStorage(selectedArticle, response) {
 };
 
 //-----------------------------------------function to add an article to LocalStorage-------------------------------------
-function addArticleToLocalStorage(selectedArticle) {
-    const arrayOfArticlesInCart = [];
+function addArticleToLocalStorage(selectedArticle, cartIsEmpty) {
+    let arrayOfArticlesInCart = [];
     const quantity = document.getElementById("article_quantity").value;
     let e = document.getElementById("article_option"); 
     const varnish = e.options[e.selectedIndex].text;
@@ -143,8 +145,14 @@ function addArticleToLocalStorage(selectedArticle) {
         quantity : quantity,
         varnish : varnish,
     };
-    arrayOfArticlesInCart.push(selectedArticleArray)
-    localStorage.setItem("articlesInCart", JSON.stringify(arrayOfArticlesInCart));
+    
+    if (cartIsEmpty = true) {     //add item if localStorage is empty (=null)
+        arrayOfArticlesInCart.push(selectedArticleArray)
+        localStorage.setItem("articlesInCart", JSON.stringify(arrayOfArticlesInCart));
+    }else{                      //push item
+        arrayOfArticlesInCart.push(selectedArticleArray)
+        localStorage.setItem("articlesInCart", JSON.stringify(arrayOfArticlesInCart));
+    };
 };
 
 //-----------------------------------------function to change qty of an existing article in LocalStorage-------------------------------------
