@@ -41,40 +41,40 @@
 	color: #3b99e0;
 }
 
-.shopping-cart .items{
+.shopping-cart .Items{
 	margin: auto;
 }
 
-.shopping-cart .items .product{
+.shopping-cart .Items .product{
 	margin-bottom: 20px;
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
 
-.shopping-cart .items .product .info{
+.shopping-cart .Items .product .info{
 	padding-top: 0px;
 	text-align: center;
 }
 
-.shopping-cart .items .product .info .product-name{
+.shopping-cart .Items .product .info .product-name{
 	font-weight: 600;
 }
 
-.shopping-cart .items .product .info .product-name .product-info{
+.shopping-cart .Items .product .info .product-name .product-info{
 	font-size: 14px;
 	margin-top: 15px;
 }
 
-.shopping-cart .items .product .info .product-name .product-info .value{
+.shopping-cart .Items .product .info .product-name .product-info .value{
 	font-weight: 400;
 }
 
-.shopping-cart .items .product .info .quantity .quantity-input{
+.shopping-cart .Items .product .info .quantity .quantity-input{
     margin: auto;
     width: 80px;
 }
 
-.shopping-cart .items .product .info .price{
+.shopping-cart .Items .product .info .price{
 	margin-top: 15px;
     font-weight: bold;
     font-size: 22px;
@@ -95,7 +95,7 @@
 	padding-bottom: 20px;
 }
 
-.shopping-cart .summary .summary-item:not(:last-of-type){
+.shopping-cart .summary .summary-Item:not(:last-of-type){
 	padding-bottom: 10px;
 	padding-top: 10px;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -116,21 +116,21 @@
 }
 
 @media (min-width: 768px) {
-	.shopping-cart .items .product .info {
+	.shopping-cart .Items .product .info {
 		padding-top: 25px;
 		text-align: left; 
 	}
 
-	.shopping-cart .items .product .info .price {
+	.shopping-cart .Items .product .info .price {
 		font-weight: bold;
 		font-size: 22px;
 		top: 17px; 
 	}
 
-	.shopping-cart .items .product .info .quantity {
+	.shopping-cart .Items .product .info .quantity {
 		text-align: center; 
 	}
-	.shopping-cart .items .product .info .quantity .quantity-input {
+	.shopping-cart .Items .product .info .quantity .quantity-input {
 		padding: 4px 10px;
 		text-align: center; 
 	}

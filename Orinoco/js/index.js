@@ -22,31 +22,31 @@ async function testServerConnection(){
 };
 
 
-//-----------------------------------------function to display all items----------------------------------------------------
+//-----------------------------------------function to display all Items----------------------------------------------------
 function displayAllDatas(){
     fetch(url)
     .then( data => data.json())
-    .then( jsonListArticles => {
-//        console.log(jsonListArticles); // debug to delete            
-        for (let jsonArticle of jsonListArticles) {
-            let article = new Article(jsonArticle);
-            createCard(article);            
+    .then( jsonListItems => {
+//        console.log(jsonListItems); // debug to delete            
+        for (let jsonItem of jsonListItems) {
+            let item = new Item(jsonItem);
+            createCard(item);            
         }
     });
 };
 
-//-----------------------------------------function to create cards with item's details-------------------------------------
-function createCard(article){
+//-----------------------------------------function to create cards with Item's details-------------------------------------
+function createCard(Item){
     document.querySelector(".row").innerHTML += 
         `<div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-                <a href="product.html?id=${article._id} "class="stretched-link"><img class="card-img-top card_image__fit" src=${article.imageUrl} alt="image objet"/></a>
+                <a href="product.html?id=${Item._id} "class="stretched-link"><img class="card-img-top card_image__fit" src=${Item.imageUrl} alt="image objet"/></a>
                 <div class="card-body">
-                    <h4 class="card-title"><a href="#!">${article.name}"</a></h4>
-                    <h5 class="text-right">${article.price} €</h5>
-                    <p class="card-text">${article.description}</p>
+                    <h4 class="card-title"><a href="#!">${Item.name}"</a></h4>
+                    <h5 class="text-right">${Item.price} €</h5>
+                    <p class="card-text">${Item.description}</p>
                 </div>
-                <div class="card-footer"><small class="text-muted">${article._id}</small></div>
+                <div class="card-footer"><small class="text-muted">${Item._id}</small></div>
             </div>
         </div>`;
 };

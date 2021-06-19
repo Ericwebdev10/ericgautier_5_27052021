@@ -1,7 +1,7 @@
 //-----------------------------------------Javascipt for product.html page------------------------------------------
-let arrayOfArticlesInCart = [];
+let arrayOfItemsInCart = [];
 let quantity = 0;
-
+let totalQuantity = 0;
 
 //----------------------------------------- function to check server connection--------------------------------------------
 async function testServerConnection(){
@@ -31,36 +31,36 @@ let productId = new URL(window.location.href).searchParams.get('id'); //extract 
 function getProductDetails(urlForProductId){
     fetch(url + "/" + urlForProductId)
     .then( data => data.json())
-    .then( article => {
-        diplayOneCard(article);
-        addProductOptions(article);
+    .then( item => {
+        diplayOneCard(item);
+        addProductOptions(item);
     });
 };
 
 
 //-----------------------------------------function to create one card with product's details-------------------------------------
-function diplayOneCard(article){
-    numberOfOption = article.varnish.length;   
+function diplayOneCard(item){
+    numberOfOption = item.varnish.length;   
     document.querySelector(".row").innerHTML += `<div class="col-lg-6 col-md-6 mb-4 text-center mx-auto">
                                                     <div class="card h-100">
-                                                        <img id="article_imageUrl" class="card-img-top" src=${article.imageUrl} alt="image objet"/>
+                                                        <img id="item_imageUrl" class="card-img-top" src=${item.imageUrl} alt="image objet"/>
                                                         <div class="card-body">
-                                                            <h4 id="article_name" class="card-title">${article.name}"</h4>
-                                                            <h5 id="article_price" class="text-right">${article.price/100} €</h5>
-                                                            <p id="article_description" class="card-text">${article.description}</p>
+                                                            <h4 id="item_name" class="card-title">${item.name}"</h4>
+                                                            <h5 id="item_price" class="text-right">${item.price/100} €</h5>
+                                                            <p id="item_description" class="card-text">${item.description}</p>
 
                                                             <div class="input-group mb-3">
                                                                 <div class="input-group-prepend">
-                                                                    <label class="input-group-text" for="article_option">Couleurs</label>
+                                                                    <label class="input-group-text" for="item_option">Couleurs</label>
                                                                 </div>
-                                                                <select class="custom-select options" id="article_option"></select>
+                                                                <select class="custom-select options" id="item_option"></select>
                                                             </div>
                                                                     
                                                             <div class="input-group mb-3">
                                                                 <div class="input-group-prepend">
-                                                                    <label class="input-group-text" for="article_quantity">Quantité</label>
+                                                                    <label class="input-group-text" for="item_quantity">Quantité</label>
                                                                 </div>
-                                                                <select class="custom-select" id="article_quantity">
+                                                                <select class="custom-select" id="item_quantity">
                                                                     <option selected>1</option>
                                                                     <option value="2">2</option>
                                                                     <option value="3">3</option>
@@ -79,90 +79,100 @@ function diplayOneCard(article){
                                                                 <a href="shoppingcart.html" class="btn btn-secondary m-1">Voir le panier</a>
                                                             </div>
                                                         </div>
-                                                        <div class="card-footer"><small class="text-muted" id="article_id">${article._id}</small></div>
+                                                        <div class="card-footer"><small class="text-muted" id="item_id">${item._id}</small></div>
                                                     </div>
                                                 </div>`;
                                                 
                                                 document // add Event Listener to ButtonAddToCart
                                                 .getElementById("ButtonAddToCart")
-                                                .addEventListener("click", function() {checkArticleInLocalStorage(article);}, false);
+                                                .addEventListener("click", function() {checkItemInLocalStorage(item);}, false);
 };
 
 
 //-----------------------------------------function to add product's options-------------------------------------
-function addProductOptions(article){
+function addProductOptions(item){
     //loop to add options
-    ArticleOption = "";
+    itemOption = "";
     j = 0; 
-    for (let ArticleOption of article.varnish) {                                      
-        document.querySelector(".options").innerHTML += `<option value="${j}">${ArticleOption}</option>`;
-        ArticleOption++;
+    for (let itemOption of item.varnish) {                                      
+        document.querySelector(".options").innerHTML += `<option value="${j}">${itemOption}</option>`;
+        itemOption++;
         j++;
     };
 };
 
 
 //-----------------------------------------function to add item to cart-----------------------------------------
-function checkArticleInLocalStorage(selectedArticle, response) {
+function checkItemInLocalStorage(selectedItem, response) {
     let cartIsEmpty = false;
     let itemExistInCart = false;
-    let e = document.getElementById("article_option"); 
+    let e = document.getElementById("item_option"); 
     const varnish = e.options[e.selectedIndex].text;
-    arrayOfArticlesInCart = JSON.parse(localStorage.getItem('articlesInCart')); //get back articles already in localStorage
-    quantity = document.getElementById("article_quantity").value;
+    arrayOfItemsInCart = JSON.parse(localStorage.getItem('itemsInCart')); //get back items already in localStorage
+    quantity = document.getElementById("item_quantity").value;
 
 
-    if (arrayOfArticlesInCart === null) {                                       //case localStorage is blank
+    if (arrayOfItemsInCart === null) {                                    //case localStorage is blank
         cartIsEmpty = true;
-        addArticleToLocalStorage(selectedArticle, cartIsEmpty);
-        response = "cart empty => Article Added";
+        addItemToLocalStorage(selectedItem, cartIsEmpty);
+        response = "cart empty => item Added";
         console.log("debug id1 " + response);
 
-    } else{                                                                     //case localStorage has 1 or more items
+    } else{                                                               //case localStorage has 1 or more items
         cartIsEmpty = false;
         itemExistInCart = false;
-        arrayOfArticlesInCart.forEach(articlesInCart => {                       //loop to check if the same item with same varnish already exist in localStorage
-            if (selectedArticle._id === articlesInCart._id && varnish === articlesInCart.varnish) {                
-                articlesInCart.quantity = parseInt(articlesInCart.quantity) + parseInt(quantity);   //if item found then change qty
-                localStorage.setItem("articlesInCart", JSON.stringify(arrayOfArticlesInCart));                
+        arrayOfItemsInCart.forEach(itemsInCart => {                       //loop to check if the same item with same varnish already exist in localStorage
+            if (selectedItem._id === itemsInCart._id && varnish === itemsInCart.varnish) {                
+                itemsInCart.quantity = parseInt(itemsInCart.quantity) + parseInt(quantity);   //if item found then change qty
+                localStorage.setItem("itemsInCart", JSON.stringify(arrayOfItemsInCart));                
                 itemExistInCart = true;
-                response = "cart NOT empty + same item exist => Article Modified";
+                response = "cart NOT empty + same item exist => item Modified";
                 console.log("debug id2 " + response);
             }
         });
         if (cartIsEmpty === false && itemExistInCart === false) {               //if item was not found in loop above                                                       
-            addArticleToLocalStorage(selectedArticle, cartIsEmpty);
-            response = "cart NOT empty + item not found => Article Added";
+            addItemToLocalStorage(selectedItem, cartIsEmpty);
+            response = "cart NOT empty + item not found => item Added";
             console.log("debug id3 " + response);
         };
     };
+
+    totalQuantity = JSON.parse(localStorage.getItem('totalItemsInCart'));       //get back total qty from localStorage
+    if (totalQuantity === null) {
+        localStorage.setItem("totalItemsInCart", JSON.stringify(0 + parseInt(quantity)));
+    }else {
+        localStorage.setItem("totalItemsInCart", JSON.stringify(totalQuantity + parseInt(quantity))); 
+    };
+
+    document.getElementById("itemsInCart").textContent = "Panier (" + totalQuantity + ")";
+
     return response;
 };
 
-//-----------------------------------------function to add an article to LocalStorage-------------------------------------
-function addArticleToLocalStorage(selectedArticle, cartIsEmpty) {
-    quantity = document.getElementById("article_quantity").value;
-    let e = document.getElementById("article_option"); 
+//-----------------------------------------function to add an item to LocalStorage-------------------------------------
+function addItemToLocalStorage(selectedItem, cartIsEmpty) {
+    quantity = document.getElementById("item_quantity").value;
+    let e = document.getElementById("item_option"); 
     const varnish = e.options[e.selectedIndex].text;
     
-    let selectedArticleArray = {
-        _id : selectedArticle._id,
-        description : selectedArticle.description,
-        imageUrl : selectedArticle.imageUrl,
-        name : selectedArticle.name,
-        price : selectedArticle.price / 100, // format price
+    let selectedItemArray = {
+        _id : selectedItem._id,
+        description : selectedItem.description,
+        imageUrl : selectedItem.imageUrl,
+        name : selectedItem.name,
+        price : selectedItem.price / 100, // format price
         quantity : quantity,
         varnish : varnish,
     };
     
     if (cartIsEmpty === true) {         //initialise array if localStorage is empty (=null)
-        arrayOfArticlesInCart = [];
-        arrayOfArticlesInCart.push(selectedArticleArray)
-        localStorage.setItem("articlesInCart", JSON.stringify(arrayOfArticlesInCart));
+        arrayOfItemsInCart = [];
+        arrayOfItemsInCart.push(selectedItemArray)
+        localStorage.setItem("itemsInCart", JSON.stringify(arrayOfItemsInCart));
 //        console.log("debug id4 cartIsEmpty " + cartIsEmpty);
     }else{                              //add new array item 
-        arrayOfArticlesInCart.push(selectedArticleArray)
-        localStorage.setItem("articlesInCart", JSON.stringify(arrayOfArticlesInCart));
+        arrayOfItemsInCart.push(selectedItemArray)
+        localStorage.setItem("itemsInCart", JSON.stringify(arrayOfItemsInCart));
 //        console.log("debug id5 cartIsEmpty " + cartIsEmpty);
     };
 };
