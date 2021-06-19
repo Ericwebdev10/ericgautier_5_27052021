@@ -54,3 +54,4 @@ function createCard(Item){
 
 //---------------------------------------------Sequence----------------------------------------------------------------
 testServerConnection();
+displayTotalQty();

@@ -13,3 +13,7 @@ document.querySelector('.customer_inputs input[type="button"]').addEventListener
         alert("mettre à jour la page commande :)");
     }
 });
+
+
+//---------------------------------------------Sequence----------------------------------------------------------------
+displayTotalQty();

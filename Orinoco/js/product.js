@@ -136,16 +136,7 @@ function checkItemInLocalStorage(selectedItem, response) {
             console.log("debug id3 " + response);
         };
     };
-
-    totalQuantity = JSON.parse(localStorage.getItem('totalItemsInCart'));       //get back total qty from localStorage
-    if (totalQuantity === null) {
-        localStorage.setItem("totalItemsInCart", JSON.stringify(0 + parseInt(quantity)));
-    }else {
-        localStorage.setItem("totalItemsInCart", JSON.stringify(totalQuantity + parseInt(quantity))); 
-    };
-
-    document.getElementById("itemsInCart").textContent = "Panier (" + totalQuantity + ")";
-
+    updateTotalQty(quantity);
     return response;
 };
 
@@ -180,3 +171,4 @@ function addItemToLocalStorage(selectedItem, cartIsEmpty) {
 
 //---------------------------------------------Sequence----------------------------------------------------------------
 testServerConnection();
+displayTotalQty();
