@@ -50,14 +50,18 @@ function updateTotalQty(qtyToAdd) {
 };
 
 
-//-----------------------------------------function to show cart quantity in the navbar-------------------------------------
+//-----------------------------------------function to show cart's quantity in the navbar-------------------------------------
 function displayTotalQty() {
-    let quantity = 0;
+    let totalquantity = 0;
 
-    quantity = JSON.parse(localStorage.getItem('totalItemsInCart'))
-    if (quantity === null) {
-        quantity = 0;
+    totalquantity = JSON.parse(localStorage.getItem('totalItemsInCart'));
+    if (totalquantity === null) {
+        totalquantity = 0;
     };
-    document.getElementById("itemsInCart").textContent = "Panier (" + quantity + ")";
+    document.getElementById("itemsQtyInCart").innerHTML =  `<a class="nav-link" id="itemsInCart" href="shoppingcart.html" >
+                                                            Panier (${totalquantity})
+                                                            <span class="sr-only">(current)</span>
+                                                            <img src="assets/cart.jpg" height="20" alt="Logo panier" />
+                                                        </a>`
  
 };
