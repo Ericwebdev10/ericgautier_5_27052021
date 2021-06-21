@@ -41,51 +41,52 @@ function getProductDetails(urlForProductId){
 //-----------------------------------------function to create one card with product's details-------------------------------------
 function diplayOneCard(item){
     numberOfOption = item.varnish.length;   
-    document.querySelector(".row").innerHTML += `<div class="col-lg-6 col-md-6 mb-4 text-center mx-auto">
-                                                    <div class="card h-100">
-                                                        <img id="item_imageUrl" class="card-img-top" src=${item.imageUrl} alt="image objet"/>
-                                                        <div class="card-body">
-                                                            <h4 id="item_name" class="card-title">${item.name}"</h4>
-                                                            <h5 id="item_price" class="text-right">${item.price/100} €</h5>
-                                                            <p id="item_description" class="card-text">${item.description}</p>
+    document.querySelector(".row").innerHTML += 
+        `<div class="col-lg-6 col-md-6 mb-4 text-center mx-auto">
+            <div class="card h-100">
+                <img id="item_imageUrl" class="card-img-top" src=${item.imageUrl} alt="image objet"/>
+                <div class="card-body">
+                    <h4 id="item_name" class="card-title">${item.name}"</h4>
+                    <h5 id="item_price" class="text-right">${item.price/100} €</h5>
+                    <p id="item_description" class="card-text">${item.description}</p>
 
-                                                            <div class="input-group mb-3">
-                                                                <div class="input-group-prepend">
-                                                                    <label class="input-group-text" for="item_option">Couleurs</label>
-                                                                </div>
-                                                                <select class="custom-select options" id="item_option"></select>
-                                                            </div>
-                                                                    
-                                                            <div class="input-group mb-3">
-                                                                <div class="input-group-prepend">
-                                                                    <label class="input-group-text" for="item_quantity">Quantité</label>
-                                                                </div>
-                                                                <select class="custom-select" id="item_quantity">
-                                                                    <option selected>1</option>
-                                                                    <option value="2">2</option>
-                                                                    <option value="3">3</option>
-                                                                    <option value="4">4</option>
-                                                                    <option value="5">5</option>
-                                                                    <option value="6">6</option>
-                                                                    <option value="7">7</option>
-                                                                    <option value="8">8</option>
-                                                                    <option value="9">9</option>
-                                                                    <option value="10">10</option>
-                                                                </select>
-                                                            </div>
-                                                            <div id="ButtonAddToCart" class="btn btn-block btn-primary mb-3">Ajouter au panier</div>
-                                                            <div class="m-1">
-                                                                <a href="index.html" class="btn btn-secondary m-1"> Continuer </a>
-                                                                <a href="shoppingcart.html" class="btn btn-secondary m-1">Voir le panier</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer"><small class="text-muted" id="item_id">${item._id}</small></div>
-                                                    </div>
-                                                </div>`;
-                                                
-                                                document // add Event Listener to ButtonAddToCart
-                                                .getElementById("ButtonAddToCart")
-                                                .addEventListener("click", function() {checkItemInLocalStorage(item);}, false);
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="item_option">Couleurs</label>
+                        </div>
+                        <select class="custom-select options" id="item_option"></select>
+                    </div>
+                            
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="item_quantity">Quantité</label>
+                        </div>
+                        <select class="custom-select" id="item_quantity">
+                            <option selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                    <div id="ButtonAddToCart" class="btn btn-block btn-primary mb-3">Ajouter au panier</div>
+                    <div class="m-1">
+                        <a href="index.html" class="btn btn-secondary m-1">Continuer les achats </a>
+                        <a href="shoppingcart.html" class="btn btn-secondary m-1 pl-5 pr-5">Voir le panier</a>
+                    </div>
+                </div>
+                <div class="card-footer"><small class="text-muted" id="item_id">${item._id}</small></div>
+            </div>
+        </div>`;
+        
+        document // add Event Listener to ButtonAddToCart
+        .getElementById("ButtonAddToCart")
+        .addEventListener("click", function() {checkItemInLocalStorage(item);}, false);
 };
 
 

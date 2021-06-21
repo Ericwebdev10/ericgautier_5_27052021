@@ -1,7 +1,6 @@
 //-----------------------------------------Javascipt for common functions------------------------------------------
 
 //-----------------------------------------function display banner----------------------------------------------------
-
 function displaySpecialOffer(visible){
     if (visible === true) {
     document.querySelector(".row").innerHTML += `<div class="col-lg-12 text-center alert alert-info alert-dismissible fade show mt-5 pt-5 shadow-lg" role="alert">
@@ -16,7 +15,6 @@ function displaySpecialOffer(visible){
 
 
 //-----------------------------------------function display title----------------------------------------------------
-
 function displayTitle(visible){
     if (visible === true) {
     document.querySelector(".row").innerHTML += `<div class="col-lg-12 text-center">
@@ -30,7 +28,6 @@ function displayTitle(visible){
 function updateConnectionMessage(error, clear){
     if (clear === true){
         document.getElementById("mainTitle").innerHTML =    `<h1 class="my-4"></h1>`; // clear default text "connection en cours..."
-
     }else {
         document.getElementById("mainTitle").innerHTML =    `<div class="col-lg-12 text-center text-danger bg-warning">
                                                             <h1 class="my-4">Erreur connection => ${error}</h1>`;
@@ -63,5 +60,4 @@ function displayTotalQty() {
                                                             <span class="sr-only">(current)</span>
                                                             <img src="assets/cart.jpg" height="20" alt="Logo panier" />
                                                         </a>`
- 
 };

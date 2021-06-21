@@ -112,8 +112,14 @@ function setStyles() {
       
       console.log(index);
 
-      
+//https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array
 
+//https://stackoverflow.com/questions/61566445/point-out-the-current-dom-class-being-used-in-js
+
+//https://developer.mozilla.org/fr/docs/Web/API/Location/reload
+
+Test unitaire
+https://register.gotowebinar.com/recording/8611771306467974406
 
 */
 
