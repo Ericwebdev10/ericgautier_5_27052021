@@ -10,7 +10,6 @@ function getItemsFromLocalStorage(response) {
         document.querySelector(".itemsSubTotalAmount").textContent = "0 €";
         response = "cart is empty";
         console.log("debug id1 " + response);
-
     } else{                                                               //case localStorage has 1 or more items
         arrayOfItemsInCart.forEach(itemsInCart => {                       //loop to check if the same item with same varnish already exist in localStorage
             i++;
@@ -20,7 +19,6 @@ function getItemsFromLocalStorage(response) {
             console.log("debug id2 " + response);
         });
     };
-
 };
 
 
@@ -62,7 +60,7 @@ function createShoppingCartCards(itemsInCart, cartIndex) {
 };
 
 
-//----------------------------------------- function to get button index---------------------------------------------------------------
+//----------------------------------------- function to get button index to retrieve which item to delete---------------------------------------------------------------
 function getButtonRemoveIndex(buttonIndex){
     const index = Array
                     .from(document.getElementsByClassName('ButtonRemoveItem'))
@@ -72,8 +70,7 @@ function getButtonRemoveIndex(buttonIndex){
  };
 
 
-
-//----------------------------------------- function to remove item from SC then reload card's content in the shopping cart section---------------------------------------------------------------
+//----------------------------------------- function to remove item from SC then reload card's content in the shopping cart section-------------------------------------
 function removeItemFromLocalStorage(itemIndex){
     let qty = 0;
     arrayOfItemsInCart = JSON.parse(localStorage.getItem('itemsInCart'));   //get back items already in localStorage
@@ -85,7 +82,7 @@ function removeItemFromLocalStorage(itemIndex){
 
 
 //----------------------------------------- Update element's values-----------------------------------------------------------------
-function updateInfoText() {
+function updateGoodsInfo() {
 
     //update display info of items qty in cart
     let totalquantity = 0;
@@ -95,12 +92,12 @@ function updateInfoText() {
     };
     document.getElementById("itemsQtyInCartP").textContent = totalquantity + " article(s) dans le panier";
 
-    //calculate amount of goods in cart
+    //calculate € amount of goods in cart
     let qty = 0;
     let itemCost = 0;
     let amount = 0;
-    arrayOfItemsInCart = JSON.parse(localStorage.getItem('itemsInCart')); //get back items array from localStorage
-    arrayOfItemsInCart.forEach(itemsInCart => {                       //loop to check if the same item with same varnish already exist in localStorage
+    arrayOfItemsInCart = JSON.parse(localStorage.getItem('itemsInCart'));   //get back items array from localStorage
+    arrayOfItemsInCart.forEach(itemsInCart => {                             //loop to collect qty and cost of each item in localStorage
         itemCost = itemsInCart.price;
         qty = itemsInCart.quantity;
         amount = amount + (itemCost * qty)
@@ -108,11 +105,8 @@ function updateInfoText() {
         response = "goods amount" + amount;
         console.log("debug id2 " + response);
     });
-
-    document.querySelector(".itemsAmount").textContent = amount;
-    document.querySelector(".itemsSubTotalAmount").textContent = amount;
-
-
+    document.querySelector(".itemsAmount").textContent = amount + " €";
+    document.querySelector(".itemsSubTotalAmount").textContent = amount + " €";
 };
 
 
@@ -129,6 +123,7 @@ function checkInputsValidity(response) {
         if(valid){
             response = true;
             alert("mettre à jour la page commande :)");
+            
         }
     });
 };
@@ -136,5 +131,5 @@ function checkInputsValidity(response) {
 //---------------------------------------------Sequence----------------------------------------------------------------
 displayTotalQty();
 checkInputsValidity(false);
-updateInfoText();
+updateGoodsInfo();
 getItemsFromLocalStorage();

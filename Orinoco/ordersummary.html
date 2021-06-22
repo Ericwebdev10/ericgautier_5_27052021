@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="Orinoco, une entreprise de commerce en ligne" />
         <meta name="author" content="Eric Gautier" />
-        <title>Orinoco - Produit</title>
+        <title>Orinoco - commande</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/cart.jpg" />
         <!-- theme CSS (includes Bootstrap)-->
@@ -20,7 +20,7 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+                        <li class="nav-Item"><a class="nav-link" href="index.html">Accueil</a></li>
                         <li class="nav-item" id="itemsQtyInCart">
                             <a class="nav-link" href="shoppingcart.html">
                                 Panier
@@ -28,20 +28,43 @@
                                 <img src="assets/cart.jpg" height="20" alt="Logo panier" />
                             </a>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="ordersummary.html">Commande</a></li>
+                        <li class="nav-Item active"><a class="nav-link" href="ordersummary.html">Commande</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
         <!-- Page Content-->
-        <div class="container pt-5">      
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h1 id="mainTitle" class="my-4">Connection en cours...</h1>
+        <main class="page mt-5">
+            <section class="shopping-cart dark">
+                <div class="container">
+                   <div class="block-heading">
+                        <h1>Détails de la commande</h1>
+                        <p id="itemsQtyInCartP">Commandé le xx.xx.xxxx </p>
+                        <p id="itemsQtyInCartP">N° de commande : xxxxxxxxxxxxxxxxxxxxxxxxxx </p>
+                   </div>
+                   <div class="content">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12 text-center">
+                                <div class="row">
+                                    <!--items are filled in by shoppingcart.js-->
+                                    <div class="col-md-4 col-lg-4 border border-secondary">
+                                        <div class="summary-Item"><span class="text">Adresse de livraison</span></div>
+                                    </div>
+                                    <div class="col-md-4 col-lg-4">
+                                        <p>Mode de paiement</p>
+                                    </div>
+                                    <div class="col-md-4 col-lg-4">
+                                        <p>Recapitulatif de commande</p>
+                                    </div>
+                                    <!--end JS-->
+                                </div>
+                            </div>
+                        </div>                         
+                    </div>
                 </div>
-                <!-- product details filled in by product.js -->
-            </div>
-        </div>
+           </section>
+       </main>   
+        
         <!-- Footer-->
         <footer class="py-5 bg-dark text-white">
             <ul class="">
@@ -58,10 +81,10 @@
         <!-- Core theme JS-->
         <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
-        <script src="js/test.js"></script>      <!--Javascript for testing-->
-        <script src="js/variable.js"></script>  <!--store variables and constants-->
-        <script src="js/item.js"></script>      <!--items construtor-->     
-        <script src="js/script.js"></script>    <!--JS for common functions-->
-        <script src="js/product.js"></script>   <!--JS for product page-->
+        <script src="js/test.js"></script>          <!--Javascript for testing-->
+        <script src="js/variable.js"></script>      <!--store variables and constants-->
+        <script src="js/item.js"></script>          <!--Items construtor-->     
+        <script src="js/script.js"></script>        <!--JS for common functions-->
+        <script src="js/ordersummary.js"></script>  <!--JS for order details page-->
     </body>
 </html>
