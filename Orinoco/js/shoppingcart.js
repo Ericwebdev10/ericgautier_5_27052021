@@ -5,7 +5,9 @@ function getItemsFromLocalStorage(response) {
     let i = 0;
     arrayOfItemsInCart = JSON.parse(localStorage.getItem('itemsInCart')); //get back items array from localStorage
     if (arrayOfItemsInCart === null || arrayOfItemsInCart.length === 0) { //case localStorage not exist or empty
-        document.querySelector(".Items").innerHTML += `<h2>Le panier est vide</h2>`
+        document.querySelector(".Items").innerHTML += `<h2>Le panier est vide</h2>`;
+        document.querySelector(".itemsAmount").textContent = "0 €";
+        document.querySelector(".itemsSubTotalAmount").textContent = "0 €";
         response = "cart is empty";
         console.log("debug id1 " + response);
 
@@ -83,8 +85,9 @@ function removeItemFromLocalStorage(itemIndex){
 
 
 //----------------------------------------- Update element's values-----------------------------------------------------------------
-function updateElementText() {
+function updateInfoText() {
 
+    //update display info of items qty in cart
     let totalquantity = 0;
     totalquantity = JSON.parse(localStorage.getItem('totalItemsInCart'));
     if (totalquantity === null) {
@@ -92,7 +95,23 @@ function updateElementText() {
     };
     document.getElementById("itemsQtyInCartP").textContent = totalquantity + " article(s) dans le panier";
 
-    
+    //calculate amount of goods in cart
+    let qty = 0;
+    let itemCost = 0;
+    let amount = 0;
+    arrayOfItemsInCart = JSON.parse(localStorage.getItem('itemsInCart')); //get back items array from localStorage
+    arrayOfItemsInCart.forEach(itemsInCart => {                       //loop to check if the same item with same varnish already exist in localStorage
+        itemCost = itemsInCart.price;
+        qty = itemsInCart.quantity;
+        amount = amount + (itemCost * qty)
+
+        response = "goods amount" + amount;
+        console.log("debug id2 " + response);
+    });
+
+    document.querySelector(".itemsAmount").textContent = amount;
+    document.querySelector(".itemsSubTotalAmount").textContent = amount;
+
 
 };
 
@@ -117,5 +136,5 @@ function checkInputsValidity(response) {
 //---------------------------------------------Sequence----------------------------------------------------------------
 displayTotalQty();
 checkInputsValidity(false);
-updateElementText();
+updateInfoText();
 getItemsFromLocalStorage();
