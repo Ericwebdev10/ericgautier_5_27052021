@@ -121,6 +121,21 @@ function setStyles() {
 Test unitaire
 https://register.gotowebinar.com/recording/8611771306467974406
 
+
+router.get('/', furnitureCtrl.getAllFurniture);
+router.get('/:id', furnitureCtrl.getOneFurniture);
+router.post('/order', furnitureCtrl.orderFurniture);
+
+* Expects request to contain:
+ * contact: {
+ *   firstName: string,
+ *   lastName: string,
+ *   address: string,
+ *   city: string,
+ *   email: string
+ * }
+ * products: [string] <-- array of product _id
+
 */
 
 

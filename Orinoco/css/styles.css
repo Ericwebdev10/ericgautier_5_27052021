@@ -1,3 +1,6 @@
+.textbold {
+	font-weight: bolder;
+}
 
 .card_image__fit {
   object-fit: cover;

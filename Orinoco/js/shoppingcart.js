@@ -122,10 +122,28 @@ function checkInputsValidity(response) {
         }
         if(valid){
             response = true;
-            alert("mettre à jour la page commande :)");
-            
+            collectContactdetails(response);
+//            postOrder(false);
         }
     });
+};
+
+//-----------------------------------------function to format dat for the post-----------------------------------------------------------------
+function collectContactdetails (valid) {
+    if (valid === true) {
+        let contact = {                                                     //create an array with customer inputs
+            lastname : document.getElementById("lastname").value,
+            firstname : document.getElementById("firstname").value,
+            address : document.getElementById("address").value,
+            city : document.getElementById("city").value,
+            zip : document.getElementById("zip").value,
+            email : document.getElementById("email").value
+        };
+        localStorage.setItem("contact", JSON.stringify(contact));           //set customer inputs to localStorage                
+        window.location.href = "ordersummary.html";                         //re-direct to the order summary page
+    }else {
+        alert("L'envoi de la commande a échouée");
+    };
 };
 
 //---------------------------------------------Sequence----------------------------------------------------------------
