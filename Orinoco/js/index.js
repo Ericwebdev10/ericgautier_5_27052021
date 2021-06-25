@@ -42,7 +42,7 @@ function createCard(Item){
             <div class="card h-100">
                 <a href="product.html?id=${Item._id} "class="stretched-link"><img class="card-img-top card_image__fit" src=${Item.imageUrl} alt="image objet"/></a>
                 <div class="card-body">
-                    <h4 class="card-title"><a href="#!">${Item.name}"</a></h4>
+                    <h4 class="card-title"><a href="#!">${Item.name}</a></h4>
                     <h5 class="text-right">${Item.price} €</h5>
                     <p class="card-text">${Item.description}</p>
                 </div>

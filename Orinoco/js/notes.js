@@ -118,6 +118,8 @@ function setStyles() {
 
 //https://developer.mozilla.org/fr/docs/Web/API/Location/reload
 
+https://stackoverflow.com/questions/11563638/how-do-i-get-the-value-of-text-input-field-using-javascript
+
 Test unitaire
 https://register.gotowebinar.com/recording/8611771306467974406
 

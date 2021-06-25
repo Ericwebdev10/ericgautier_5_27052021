@@ -46,7 +46,7 @@ function diplayOneCard(item){
             <div class="card h-100">
                 <img id="item_imageUrl" class="card-img-top" src=${item.imageUrl} alt="image objet"/>
                 <div class="card-body">
-                    <h4 id="item_name" class="card-title">${item.name}"</h4>
+                    <h4 id="item_name" class="card-title">${item.name}</h4>
                     <h5 id="item_price" class="text-right">${item.price/100} €</h5>
                     <p id="item_description" class="card-text">${item.description}</p>
 

@@ -1,4 +1,5 @@
 //----------------------------------------- Javascipt for shoppingcart.html page--------------------------------------------------
+let amount = 0;
 
 //----------------------------------------- function to get localStorage content---------------------------------------------------------------
 function getItemsFromLocalStorage(response) {
@@ -48,7 +49,7 @@ function createShoppingCartCards(itemsInCart, cartIndex) {
                             </div>
                             <div class="col-md-4 quantity">
                                 <label for="quantity">Quantité:</label>
-                                <input id="quantity" type="number" value =${itemsInCart.quantity} min="1" class="form-control quantity-input">
+                                <p class="ButtonChangeQty"><input id="quantity" type="number" onchange="getQtyChangeIndex(this)" value =${itemsInCart.quantity} min="1" class="form-control quantity-input"></P>
                                 <p class="ButtonRemoveItem"><button class="btn btn-warning mt-5" type="submit" onclick="getButtonRemoveIndex(this)"><i class="fas fa-trash-alt"></i> Supprimer</button></p>
                             </div>
                         </div>
@@ -58,6 +59,26 @@ function createShoppingCartCards(itemsInCart, cartIndex) {
             </div>
             `
 };
+
+
+//----------------------------------------- function to get button index to retrieve which item to delete---------------------------------------------------------------
+function getQtyChangeIndex(buttonIndex){
+    const index = Array
+                    .from(document.getElementsByClassName('ButtonChangeQty'))
+                    .findIndex(x=>x===buttonIndex.parentNode);
+    let currentQty = 0;
+    let newQty = 0;
+    arrayOfItemsInCart = JSON.parse(localStorage.getItem('itemsInCart'));   //get back items already in localStorage
+    currentQty = arrayOfItemsInCart[index].quantity;
+    newQty = document.getElementsByClassName('quantity-input')[index].value;
+    if (newQty != currentQty) {
+        arrayOfItemsInCart[index].quantity = newQty;
+        updateTotalQty(parseInt(newQty - currentQty));                      //call function to update qty
+    }     
+    localStorage.setItem("itemsInCart", JSON.stringify(arrayOfItemsInCart));//set new array in localStorage                
+               
+    document.location.reload();         //reload full page to refresh items in SC
+ };
 
 
 //----------------------------------------- function to get button index to retrieve which item to delete---------------------------------------------------------------
@@ -95,7 +116,6 @@ function updateGoodsInfo() {
     //calculate € amount of goods in cart
     let qty = 0;
     let itemCost = 0;
-    let amount = 0;
     arrayOfItemsInCart = JSON.parse(localStorage.getItem('itemsInCart'));   //get back items array from localStorage
     arrayOfItemsInCart.forEach(itemsInCart => {                             //loop to collect qty and cost of each item in localStorage
         itemCost = itemsInCart.price;
@@ -139,7 +159,15 @@ function collectContactdetails (valid) {
             zip : document.getElementById("zip").value,
             email : document.getElementById("email").value
         };
-        localStorage.setItem("contact", JSON.stringify(contact));           //set customer inputs to localStorage                
+        localStorage.setItem("contact", JSON.stringify(contact));           //set customer inputs to localStorage
+
+        var currentTime = new Date();
+        let orderinfo = {
+            orderDate : "Commande du " + currentTime.toLocaleDateString() + " à " + currentTime.toLocaleTimeString(),
+            orderAmount : amount
+        };
+
+        localStorage.setItem("orderinfo", JSON.stringify(orderinfo));                
         window.location.href = "ordersummary.html";                         //re-direct to the order summary page
     }else {
         alert("L'envoi de la commande a échouée");

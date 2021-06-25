@@ -38,20 +38,20 @@
             <section class="shopping-cart dark">
                 <div class="container">
                    <div class="block-heading">
-                        <h1>Détails de la commande</h1>
-                        <p id="itemsQtyInCartP">Commandé le xx.xx.xxxx </p>
-                        <p id="itemsQtyInCartP">N° de commande : xxxxxxxxxxxxxxxxxxxxxxxxxx </p>
+                        <h1>Merci pour votre commande</h1>
+                        <p id="orderDate">Commandé le xx.xx.xxxx</p>
+                        <p id="orderID">N° de commande : xxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+                        <p class="email">Confirmation envoyé à xyz@xyz.com</p>
                    </div>
                    <div class="content">
                         <div class="row">
                             <div class="col-md-12 col-lg-12 text-center">
                                 <div class="row border border-secondary">
-                                    <!--items are filled in by shoppingcart.js-->
                                     <div class="col-md-4 col-lg-4">
                                         <p class="textbold">Adresse de livraison</p>
-                                        <p class="customerName">Jean Dupont</p>
-                                        <p class="customerAddress">1 rue de xyz</p>
-                                        <p class="customercity">Paris 75000</p>
+                                        <p class="customerName"></p>
+                                        <p class="customerAddress"></p>
+                                        <p class="customercity"></p>
                                     </div>
                                     <div class="col-md-4 col-lg-4">
                                         <p class="textbold">Mode de paiement</p>
@@ -59,15 +59,15 @@
                                     </div>
                                     <div class="col-md-4 col-lg-4">
                                         <p class="textbold">Recapitulatif de commande</p>
-                                        <p>table xyz</p>
+                                        <p>Livraison : 0 €</p>
+                                        <p id="totalAmount">Montant TTC : xxxx.xx</p>
                                     </div>
-                                    <!--end JS-->
                                 </div>
                                 <div class="row border border-secondary mt-3">
                                     <div class="col-md-8 col-lg-8">
                                         <p class="textbold">Livraison prévu Mercredi</p>
-                                        <p>article xyz</p>
-                                        <p>article xyz</p>
+                                        <p class="itemslist m-1">Articles : </p>
+                                        <!--list of article being populated here-->
                                     </div>
                                     <div class="col-md-4 col-lg-4 text-right">
                                         <input type="button" class="btn btn-secondary col-12 my-3" value="Suivre votre commande">
