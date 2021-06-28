@@ -4,18 +4,18 @@ let amount = 0;
 //----------------------------------------- function to get localStorage content---------------------------------------------------------------
 function getItemsFromLocalStorage(response) {
     let i = 0;
-    arrayOfItemsInCart = JSON.parse(localStorage.getItem('itemsInCart')); //get back items array from localStorage
-    if (arrayOfItemsInCart === null || arrayOfItemsInCart.length === 0) { //case localStorage not exist or empty
+    arrayOfItemsInCart = JSON.parse(localStorage.getItem('itemsInCart'));   //get back items array from localStorage
+    if (arrayOfItemsInCart === null || arrayOfItemsInCart.length === 0) {   //case localStorage not exist or empty
         document.querySelector(".Items").innerHTML += `<h2>Le panier est vide</h2>`;
         document.querySelector(".itemsAmount").textContent = "0 €";
         document.querySelector(".itemsSubTotalAmount").textContent = "0 €";
         response = "cart is empty";
         console.log("debug id1 " + response);
-    } else{                                                               //case localStorage has 1 or more items
-        arrayOfItemsInCart.forEach(itemsInCart => {                       //loop to check if the same item with same varnish already exist in localStorage
+    } else{                                                                 //case localStorage has 1 or more items
+        arrayOfItemsInCart.forEach(itemsInCart => {                         //loop to add all items from localStorage
             i++;
             cartIndex = i;
-            createShoppingCartCards(itemsInCart, cartIndex)               //call create cards
+            createShoppingCartCards(itemsInCart)                            //call create SC cards
             response = "cart is NOT empty";
             console.log("debug id2 " + response);
         });
@@ -24,7 +24,7 @@ function getItemsFromLocalStorage(response) {
 
 
 //----------------------------------------- function to create card's content in the shopping cart section---------------------------------------------------------------
-function createShoppingCartCards(itemsInCart, cartIndex) {
+function createShoppingCartCards(itemsInCart) {
     document.querySelector(".Items").innerHTML += 
         `<div class="product">
             <div class="row border-bottom border-secondary">
@@ -76,8 +76,7 @@ function getQtyChangeIndex(buttonIndex){
         updateTotalQty(parseInt(newQty - currentQty));                      //call function to update qty
     }     
     localStorage.setItem("itemsInCart", JSON.stringify(arrayOfItemsInCart));//set new array in localStorage                
-               
-    document.location.reload();         //reload full page to refresh items in SC
+    document.location.reload();                                             //reload full page to refresh items in SC
  };
 
 
@@ -104,29 +103,28 @@ function removeItemFromLocalStorage(itemIndex){
 
 //----------------------------------------- Update element's values-----------------------------------------------------------------
 function updateGoodsInfo() {
-
     //update display info of items qty in cart
     let totalquantity = 0;
     totalquantity = JSON.parse(localStorage.getItem('totalItemsInCart'));
     if (totalquantity === null) {
         totalquantity = 0;
+    } else {
+        document.getElementById("itemsQtyInCartP").textContent = totalquantity + " article(s) dans le panier";
+        //calculate € amount of goods in cart
+        let qty = 0;
+        let itemCost = 0;
+        arrayOfItemsInCart = JSON.parse(localStorage.getItem('itemsInCart'));   //get back items array from localStorage
+        arrayOfItemsInCart.forEach(itemsInCart => {                             //loop to collect qty and cost of each item in localStorage
+            itemCost = itemsInCart.price;
+            qty = itemsInCart.quantity;
+            amount = amount + (itemCost * qty)
+
+            response = "goods amount" + amount;
+            console.log("debug id2 " + response);
+        });
+        document.querySelector(".itemsAmount").textContent = amount + " €";
+        document.querySelector(".itemsSubTotalAmount").textContent = amount + " €";
     };
-    document.getElementById("itemsQtyInCartP").textContent = totalquantity + " article(s) dans le panier";
-
-    //calculate € amount of goods in cart
-    let qty = 0;
-    let itemCost = 0;
-    arrayOfItemsInCart = JSON.parse(localStorage.getItem('itemsInCart'));   //get back items array from localStorage
-    arrayOfItemsInCart.forEach(itemsInCart => {                             //loop to collect qty and cost of each item in localStorage
-        itemCost = itemsInCart.price;
-        qty = itemsInCart.quantity;
-        amount = amount + (itemCost * qty)
-
-        response = "goods amount" + amount;
-        console.log("debug id2 " + response);
-    });
-    document.querySelector(".itemsAmount").textContent = amount + " €";
-    document.querySelector(".itemsSubTotalAmount").textContent = amount + " €";
 };
 
 
@@ -143,17 +141,16 @@ function checkInputsValidity(response) {
         if(valid){
             response = true;
             collectContactdetails(response);
-//            postOrder(false);
         }
     });
 };
 
-//-----------------------------------------function to format dat for the post-----------------------------------------------------------------
+//-----------------------------------------function to format data for the post-----------------------------------------------------------------
 function collectContactdetails (valid) {
     if (valid === true) {
         let contact = {                                                     //create an array with customer inputs
-            lastname : document.getElementById("lastname").value,
-            firstname : document.getElementById("firstname").value,
+            lastName : document.getElementById("lastname").value,
+            firstName : document.getElementById("firstname").value,
             address : document.getElementById("address").value,
             city : document.getElementById("city").value,
             zip : document.getElementById("zip").value,
@@ -163,7 +160,7 @@ function collectContactdetails (valid) {
 
         var currentTime = new Date();
         let orderinfo = {
-            orderDate : "Commande du " + currentTime.toLocaleDateString() + " à " + currentTime.toLocaleTimeString(),
+            orderDate : "du " + currentTime.toLocaleDateString() + " à " + currentTime.toLocaleTimeString(),
             orderAmount : amount
         };
 

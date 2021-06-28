@@ -138,6 +138,29 @@ router.post('/order', furnitureCtrl.orderFurniture);
  * }
  * products: [string] <-- array of product _id
 
-*/
+
+https://openclassrooms.com/fr/courses/5543061-ecrivez-du-javascript-pour-le-web/5577626-sauvegardez-des-donnees-sur-le-service-web
+function send(e) {
+    e.preventDefault();
+    fetch("https://mockbin.com/request", {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json', 
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({value: document.getElementById("value").value})
+    })
+    .then(function(res) {
+      if (res.ok) {
+        return res.json();
+      }
+    })
+    .then(function(value) {
+        document
+          .getElementById("result")
+          .innerText = value.postData.text;
+    });
+  }
 
 
+  */
