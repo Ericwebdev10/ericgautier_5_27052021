@@ -1,5 +1,5 @@
 
-async function testServerConnection2(){
+async function ConnectToServer(){
     await fetch(url).then((response) => {
         //if (response.status >= 400 && response.status < 600)
         if (response.status !=200) {

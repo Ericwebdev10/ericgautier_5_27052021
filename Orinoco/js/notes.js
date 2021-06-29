@@ -41,6 +41,8 @@ De même, il y a deux opérateurs d'inégalité,   !=  et   !==  , avec la même
 //      alert("Server connection failed");
 
 
+Plan de test => Webinaire Luc Bourrat
+
 https://developer.mozilla.org/fr/docs/Web/API/URL
 var parsedUrl = new URL(window.location.href);
 console.log(parsedUrl.searchParams.get("id")); // 123

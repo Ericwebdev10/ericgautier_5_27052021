@@ -2,22 +2,20 @@
 let amount = 0;
 
 //----------------------------------------- function to get localStorage content---------------------------------------------------------------
-function getItemsFromLocalStorage(response) {
+function getItemsFromLocalStorage() {
     let i = 0;
     arrayOfItemsInCart = JSON.parse(localStorage.getItem('itemsInCart'));   //get back items array from localStorage
     if (arrayOfItemsInCart === null || arrayOfItemsInCart.length === 0) {   //case localStorage not exist or empty
         document.querySelector(".Items").innerHTML += `<h2>Le panier est vide</h2>`;
         document.querySelector(".itemsAmount").textContent = "0 €";
         document.querySelector(".itemsSubTotalAmount").textContent = "0 €";
-        response = "cart is empty";
-        console.log("debug id1 " + response);
+        return("cart is empty");
     } else{                                                                 //case localStorage has 1 or more items
         arrayOfItemsInCart.forEach(itemsInCart => {                         //loop to add all items from localStorage
             i++;
             cartIndex = i;
             createShoppingCartCards(itemsInCart)                            //call create SC cards
-            response = "cart is NOT empty";
-            console.log("debug id2 " + response);
+            return("cart is NOT empty");
         });
     };
 };
@@ -61,7 +59,7 @@ function createShoppingCartCards(itemsInCart) {
 };
 
 
-//----------------------------------------- function to get button index to retrieve which item to delete---------------------------------------------------------------
+//----------------------------------------- function to get button index to retrieve which item to change the qty---------------------------------------------------------------
 function getQtyChangeIndex(buttonIndex){
     const index = Array
                     .from(document.getElementsByClassName('ButtonChangeQty'))
@@ -77,6 +75,7 @@ function getQtyChangeIndex(buttonIndex){
     }     
     localStorage.setItem("itemsInCart", JSON.stringify(arrayOfItemsInCart));//set new array in localStorage                
     document.location.reload();                                             //reload full page to refresh items in SC
+    return index;                                             
  };
 
 
@@ -87,7 +86,8 @@ function getButtonRemoveIndex(buttonIndex){
                     .findIndex(x=>x===buttonIndex.parentNode);
     removeItemFromLocalStorage(index);
     document.location.reload();         //reload full page to refresh items in SC
- };
+    return index;   
+};
 
 
 //----------------------------------------- function to remove item from SC then reload card's content in the shopping cart section-------------------------------------
@@ -98,6 +98,7 @@ function removeItemFromLocalStorage(itemIndex){
     updateTotalQty(parseInt(-qty));                                         //call function to update qty
     arrayOfItemsInCart.splice(itemIndex, 1);                                //remove line in array
     localStorage.setItem("itemsInCart", JSON.stringify(arrayOfItemsInCart));//set new array in localStorage                
+    return("item deleted from localStorage")
 };
 
 
@@ -124,6 +125,7 @@ function updateGoodsInfo() {
         });
         document.querySelector(".itemsAmount").textContent = amount + " €";
         document.querySelector(".itemsSubTotalAmount").textContent = amount + " €";
+        return("Qty changed");
     };
 };
 

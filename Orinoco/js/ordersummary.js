@@ -1,16 +1,4 @@
 //----------------------------------------- Javascipt for ordersummary.html page--------------------------------------------------
-/*router.post('/order', furnitureCtrl.orderFurniture);
-
-* Expects request to contain:
- * contact: {
- *   firstName: string,
- *   lastName: string,
- *   address: string,
- *   city: string,
- *   email: string
- * }
- * products: [string] <-- array of product _id
-*/
 
 //----------------------------------------- function to get and format localStorage content to be posted---------------------------------------------------------------
 function collectItemsToPost(response) {

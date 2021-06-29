@@ -29,8 +29,8 @@ function updateConnectionMessage(error, clear){
     if (clear === true){
         document.getElementById("mainTitle").innerHTML =    `<h1 class="my-4"></h1>`; // clear default text "connection en cours..."
     }else {
-        document.getElementById("mainTitle").innerHTML =    `<div class="col-lg-12 text-center text-danger bg-warning">
-                                                            <h1 class="my-4">Erreur connection => ${error}</h1>`;
+        document.getElementById("mainTitle").innerHTML =    `<div class="col-lg-12 text-center text-danger bg-warning m-5">
+                                                            <h1 class="my-4">Connection impossible => ${error}</h1>`;
     };
 };
 

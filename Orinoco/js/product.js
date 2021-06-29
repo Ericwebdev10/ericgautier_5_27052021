@@ -4,7 +4,7 @@ let quantity = 0;
 let totalQuantity = 0;
 
 //----------------------------------------- function to check server connection--------------------------------------------
-async function testServerConnection(){
+async function connectToServer(){
     await fetch(url).then((response) => {
         if (response.status === 200) {          //server response is OK = 200 
 //            console.log("debug product id1 " + response.status + " " + response.statusText); // debug to delete
@@ -34,6 +34,7 @@ function getProductDetails(urlForProductId){
     .then( item => {
         diplayOneCard(item);
         addProductOptions(item);
+        return(urlForProductId);
     });
 };
 
@@ -100,6 +101,7 @@ function addProductOptions(item){
         itemOption++;
         j++;
     };
+    return(j);                              //count number of loop, should be equal to 4 for item 5be9cc611c9d440000c1421e 
 };
 
 
@@ -116,9 +118,7 @@ function checkItemInLocalStorage(selectedItem, response) {
     if (arrayOfItemsInCart === null) {                                    //case localStorage is blank
         cartIsEmpty = true;
         addItemToLocalStorage(selectedItem, cartIsEmpty);
-        response = "cart empty => item Added";
-        console.log("debug id1 " + response);
-
+        response = "cart empty => item added";
     } else{                                                               //case localStorage has 1 or more items
         cartIsEmpty = false;
         itemExistInCart = false;
@@ -127,14 +127,12 @@ function checkItemInLocalStorage(selectedItem, response) {
                 itemsInCart.quantity = parseInt(itemsInCart.quantity) + parseInt(quantity);   //if item found then change qty
                 localStorage.setItem("itemsInCart", JSON.stringify(arrayOfItemsInCart));                
                 itemExistInCart = true;
-                response = "cart NOT empty + same item exist => item Modified";
-                console.log("debug id2 " + response);
-            }
+                response = "cart NOT empty + same item exist => item qty changed";
+             }
         });
         if (cartIsEmpty === false && itemExistInCart === false) {               //if item was not found in loop above                                                       
             addItemToLocalStorage(selectedItem, cartIsEmpty);
-            response = "cart NOT empty + item not found => item Added";
-            console.log("debug id3 " + response);
+            response = "cart NOT empty + item not found => item added";
         };
     };
     updateTotalQty(quantity);
@@ -161,15 +159,15 @@ function addItemToLocalStorage(selectedItem, cartIsEmpty) {
         arrayOfItemsInCart = [];
         arrayOfItemsInCart.push(selectedItemArray)
         localStorage.setItem("itemsInCart", JSON.stringify(arrayOfItemsInCart));
-//        console.log("debug id4 cartIsEmpty " + cartIsEmpty);
-    }else{                              //add new array item 
+        return("initialise array if localStorage is empty (=null)");
+    }else{                              //add new item 
         arrayOfItemsInCart.push(selectedItemArray)
         localStorage.setItem("itemsInCart", JSON.stringify(arrayOfItemsInCart));
-//        console.log("debug id5 cartIsEmpty " + cartIsEmpty);
+        return("add new item");
     };
 };
 
 
 //---------------------------------------------Sequence----------------------------------------------------------------
-testServerConnection();
+connectToServer();
 displayTotalQty();

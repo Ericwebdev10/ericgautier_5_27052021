@@ -1,10 +1,9 @@
 //----------------------------------------- Javascipt for index.html page--------------------------------------------------
 
 //----------------------------------------- function to check server connection--------------------------------------------
-async function testServerConnection(){
+async function connectToServer(){
     await fetch(url).then((response) => {
         if (response.status === 200) {          //server response is OK = 200 
-//            console.log("debug product id1 " + response.status + " " + response.statusText); // debug to delete
        }else{                                   //server response is NOT OK != 200
             throw new Error(response.status + " " + response.statusText);
          }
@@ -24,16 +23,19 @@ async function testServerConnection(){
 
 //-----------------------------------------function to display all Items----------------------------------------------------
 function displayAllDatas(){
+let i = 0;
     fetch(url)
     .then( data => data.json())
     .then( jsonListItems => {
-//        console.log(jsonListItems); // debug to delete            
         for (let jsonItem of jsonListItems) {
             let item = new Item(jsonItem);
-            createCard(item);            
+            createCard(item);
+            i++;          
         }
+        return(i);                              //count number of loop, should be equal to 5 
     });
 };
+
 
 //-----------------------------------------function to create cards with Item's details-------------------------------------
 function createCard(Item){
@@ -53,5 +55,5 @@ function createCard(Item){
 
 
 //---------------------------------------------Sequence----------------------------------------------------------------
-testServerConnection();
+connectToServer();
 displayTotalQty();
