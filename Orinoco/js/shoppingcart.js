@@ -121,7 +121,6 @@ function updateGoodsInfo() {
             amount = amount + (itemCost * qty)
 
             response = "goods amount" + amount;
-            console.log("debug id2 " + response);
         });
         document.querySelector(".itemsAmount").textContent = amount + " €";
         document.querySelector(".itemsSubTotalAmount").textContent = amount + " €";
@@ -132,6 +131,13 @@ function updateGoodsInfo() {
 
 //----------------------------------------- check inputs validity-----------------------------------------------------------------
 function checkInputsValidity(response) {
+    let validLastName = false;
+    let validFirstName = false;
+    let validAddress = false;
+    let validCity = false;
+    let validZip = false;
+    let validEmail = false;
+
     document.querySelector('.customer_inputs input[type="button"]').addEventListener("click",function(){
         var valid = true;
         for(let input of document.querySelectorAll(".customer_inputs input")){
@@ -139,11 +145,52 @@ function checkInputsValidity(response) {
             if(!valid){
                 break;
             }
-        }
+        };        
         if(valid){
+            var contact = {                                                     //create an array with customer inputs
+                lastName : document.getElementById("lastname").value,
+                firstName : document.getElementById("firstname").value,
+                address : document.getElementById("address").value,
+                city : document.getElementById("city").value,
+                zip : document.getElementById("zip").value,
+                email : document.getElementById("email").value
+            };    
+            if (isValidName(contact.lastName)){
+                validLastName = true;
+            }else{
+                alert("Nom non valide!")
+            }
+            if (isValidName(contact.firstName)){
+                validFirstName = true;
+            }else{
+                alert("Prénom non valide!")
+            }
+            if (isValidAddress(contact.address)){
+                validAddress = true;
+            }else{
+                alert("Adresse non valide!")
+            }
+            if (isValidCity(contact.city)){
+                validCity = true;
+            }else{
+                alert("Ville non valide!")
+            }
+            if (isValidZip(contact.zip)){
+                validZip = true;
+            }else{
+                alert("Code postal non valide, ex : 54300!")
+            }
+            if (isValidEmail(contact.email)){
+                validEmail = true;
+            }else{
+                alert("email non valide!")
+            };
+        };        
+        if (validLastName && validFirstName && validAddress && validCity && validZip && validEmail) {
             response = true;
+            localStorage.setItem("contact", JSON.stringify(contact));           //set customer inputs to localStorage
             collectContactdetails(response);
-        }
+        };
     });
 };
 
@@ -151,16 +198,6 @@ function checkInputsValidity(response) {
 //-----------------------------------------function to format contact and other data for the post-----------------------------------------------------------------
 function collectContactdetails (valid) {
     if (valid === true) {
-        let contact = {                                                     //create an array with customer inputs
-            lastName : document.getElementById("lastname").value,
-            firstName : document.getElementById("firstname").value,
-            address : document.getElementById("address").value,
-            city : document.getElementById("city").value,
-            zip : document.getElementById("zip").value,
-            email : document.getElementById("email").value
-        };
-        localStorage.setItem("contact", JSON.stringify(contact));           //set customer inputs to localStorage
-
         var currentTime = new Date();
         let orderinfo = {
             orderDate : "du " + currentTime.toLocaleDateString() + " à " + currentTime.toLocaleTimeString(),

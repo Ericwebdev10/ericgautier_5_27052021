@@ -61,3 +61,22 @@ function displayTotalQty() {
                                                             <img src="assets/cart.jpg" height="20" alt="Logo panier" />
                                                         </a>`
 };
+
+
+//-----------------------------------------functions regex to validate inputs before post-------------------------------------
+function isValidName(sName) {
+    return /^[a-zA-Z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u024F\u1E00-\u1EFF .-]+$/.test(sName);
+};
+function isValidAddress(sAddress){
+    return /^[0-9/a-zA-Z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u024F\u1E00-\u1EFF .-]+$/.test(sAddress);
+}
+function isValidCity(sCity){
+    return /^[0-9/a-zA-Z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u024F\u1E00-\u1EFF .-]+$/.test(sCity);
+}
+function isValidZip(sZip) {
+    return /^[0-9]{5,5}$/.test(sZip);
+};
+function isValidEmail(sEmail) {
+    return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(sEmail);
+};
+

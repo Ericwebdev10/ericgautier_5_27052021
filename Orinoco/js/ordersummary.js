@@ -20,18 +20,15 @@ function collectItemsToPost() {
       const zip = contact.zip;
       const email = contact.email;
 
-    products = JSON.parse(localStorage.getItem('products'));   //get back products id list from localStorage               
-
     checkDataConsitency(contact,products);
-    
     return("Collection of items to be be posted completed");
 };
 
 
 //----------------------------------------- function to check data consitency before post---------------------------------------------------------------
 function checkDataConsitency(contact,products) {
-  //regex
-   let DataConsitency = true
+
+   let DataConsitency = true //to replace by if 
  
    if (DataConsitency === true) {
      postOrder(contact,products);
