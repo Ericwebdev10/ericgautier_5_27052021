@@ -1,18 +1,72 @@
 //----------------------------------------- Javascipt for ordersummary.html page--------------------------------------------------
 
-//----------------------------------------- function to get and format localStorage content to be posted---------------------------------------------------------------
-function collectItemsToPost(response) {
+//----------------------------------------- function format items for the post + add items to the summary---------------------------------------------------------------
+function collectItemsToPost() {
     let products = [];
     let i = 0;
     arrayOfItemsInCart = JSON.parse(localStorage.getItem('itemsInCart'));   //get back items array from localStorage
     arrayOfItemsInCart.forEach(itemsInCart => {                             //loop to collect items id (to post) from localStorage
         products[i] = itemsInCart._id;
         i++;
-        document.querySelector(".itemslist").innerHTML += `<p class="m-1">${itemsInCart._id}</p>`
+        document.querySelector(".itemslist").innerHTML += `<p class="m-1">${itemsInCart.name}, ${itemsInCart.varnish}, qté : ${itemsInCart.quantity}</p>` //add items to the summary
     });
     localStorage.setItem("products", JSON.stringify(products));             //set product list (to post) to localStorage                
-    response = "CollectItemsToPost"
-    return response;
+    
+    let contact = JSON.parse(localStorage.getItem('contact'));      //get back contact details from localStorage
+      const lastName = contact.lastName;
+      const firstName = contact.firstName;
+      const address = contact.address;
+      const city = contact.city;
+      const zip = contact.zip;
+      const email = contact.email;
+
+    products = JSON.parse(localStorage.getItem('products'));   //get back products id list from localStorage               
+
+    checkDataConsitency(contact,products);
+    
+    return("Collection of items to be be posted completed");
+};
+
+
+//----------------------------------------- function to check data consitency before post---------------------------------------------------------------
+function checkDataConsitency(contact,products) {
+  //regex
+   let DataConsitency = true
+ 
+   if (DataConsitency === true) {
+     postOrder(contact,products);
+   };
+     return("Data consitency validated");
+ };
+ 
+
+//----------------------------------------- function to POST data to server---------------------------------------------------------------
+function postOrder(contact,products) {
+  fetch(url + "/order", {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json', 
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({contact, products})
+    })
+    .then(function(res) {
+      if (res.ok) {
+        return res.json();
+      }
+    })
+    .then(function(value) {
+        document
+          .getElementById("orderID")
+          .innerText = "N° : " + value.orderId;
+          response = "PostOrder completed";
+          return response;
+    })
+    .catch((error) => {                                           // Catch error
+      updateConnectionMessage(error, false);
+      response = "function PosterOrder " + error;
+      return response;
+  });
 };
 
 
@@ -39,58 +93,6 @@ function updatePageContent() {
 };
 
 
-//----------------------------------------- function to check data consitency before post---------------------------------------------------------------
-function checkDataConsitency(response) {
- //regex
-  let DataConsitency = true
-
-  if (DataConsitency === true) {
-    postOrder(true);
-  };
-    return response;
-};
-
-
-//----------------------------------------- function to POST data to server---------------------------------------------------------------
-function postOrder(response) {
-  let contact = JSON.parse(localStorage.getItem('contact'));      //get back contact details from localStorage
-    const lastName = contact.lastName;
-    const firstName = contact.firstName;
-    const address = contact.address;
-    const city = contact.city;
-    const zip = contact.zip;
-    const email = contact.email;
-
-  let products = JSON.parse(localStorage.getItem('products'));   //get back products id list from localStorage               
-
-  fetch(url + "/order", {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json', 
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({contact, products})
-    })
-    .then(function(res) {
-      if (res.ok) {
-        return res.json();
-      }
-    })
-    .then(function(value) {
-//      console.log(value.orderId);                               //debug to delete
-        document
-          .getElementById("orderID")
-          .innerText = "N° : " + value.orderId;
-          response = "PostOrder completed";
-          return response;
-    })
-    .catch((error) => {                                           // Catch error
-      updateConnectionMessage(error, false);
-      response = "function PosterOrder " + error;
-      return response;
-  });
-};
-
 //----------------------------------------- function to delete keys in localStorage---------------------------------------------------------------
 function deleteKeyInLocalStorage(response){
   localStorage.removeItem('totalItemsInCart');
@@ -106,7 +108,6 @@ function deleteKeyInLocalStorage(response){
 
 //---------------------------------------------Sequence----------------------------------------------------------------
 collectItemsToPost();                                             //prepare data
-checkDataConsitency();                                            //check data before post
 updatePageContent();                                              //update order information
 deleteKeyInLocalStorage();                                        //delete keys
 displayTotalQty();                                                //clear qty in navbar

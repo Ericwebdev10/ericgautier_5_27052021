@@ -147,7 +147,8 @@ function checkInputsValidity(response) {
     });
 };
 
-//-----------------------------------------function to format data for the post-----------------------------------------------------------------
+
+//-----------------------------------------function to format contact and other data for the post-----------------------------------------------------------------
 function collectContactdetails (valid) {
     if (valid === true) {
         let contact = {                                                     //create an array with customer inputs
@@ -172,6 +173,7 @@ function collectContactdetails (valid) {
         alert("L'envoi de la commande a échouée");
     };
 };
+
 
 //---------------------------------------------Sequence----------------------------------------------------------------
 displayTotalQty();
