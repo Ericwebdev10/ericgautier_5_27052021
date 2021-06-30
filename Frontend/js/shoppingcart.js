@@ -200,7 +200,7 @@ function collectOrderDetails(valid) {
     if (valid === true) {
         var currentTime = new Date();
         let orderinfo = {
-            orderDate : "du " + currentTime.toLocaleDateString() + " à " + currentTime.toLocaleTimeString(),
+            orderDate : "Du " + currentTime.toLocaleDateString() + " à " + currentTime.toLocaleTimeString(),
             orderAmount : amount
         };
         localStorage.setItem("orderinfo", JSON.stringify(orderinfo));                
