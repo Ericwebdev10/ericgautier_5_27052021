@@ -10,101 +10,94 @@ function collectItemsToPost() {
         i++;
         document.querySelector(".itemslist").innerHTML += `<p class="m-1">${itemsInCart.name}, ${itemsInCart.varnish}, qté : ${itemsInCart.quantity}</p>` //add items to the summary
     });
-    localStorage.setItem("products", JSON.stringify(products));             //set product list (to post) to localStorage                
-    
-    let contact = JSON.parse(localStorage.getItem('contact'));      //get back contact details from localStorage
-      const lastName = contact.lastName;
-      const firstName = contact.firstName;
-      const address = contact.address;
-      const city = contact.city;
-      const zip = contact.zip;
-      const email = contact.email;
-
-    checkDataConsitency(contact,products);
+    localStorage.setItem("products", JSON.stringify(products));             //set product list (to post) to localStorage                    
+    let contact = JSON.parse(localStorage.getItem('contact'));              //get back contact details from localStorage
+    checkDataConsitencyBeforePost(contact,products);                        //call function to check data consitency
     return("Collection of items to be be posted completed");
 };
 
 
-//----------------------------------------- function to check data consitency before post---------------------------------------------------------------
-function checkDataConsitency(contact,products) {
-
-   let DataConsitency = true //to replace by if 
- 
-   if (DataConsitency === true) {
-     postOrder(contact,products);
-   };
-     return("Data consitency validated");
- };
+//----------------------------------------- function to check again data consitency before post to avoid corrupted data------------------------
+function checkDataConsitencyBeforePost(contact,products) {
+//    contact.lastName = contact.lastName + "@"                           //only for test purposes
+    if (isValidName(contact.lastName) && isValidName(contact.firstName) 
+      && isValidAddress(contact.address) && isValidCity(contact.city) 
+      && isValidZip(contact.zip) && isValidEmail(contact.email)) {
+        postOrder(contact,products);                                      //post order to get order id
+        return("Data consitency validated");
+    }else {
+        let error = "données utilisateur corrompues";
+        updateConnectionMessage(error, false);
+        alert(error);
+        return("Data corrupted");
+    }
+};
  
 
 //----------------------------------------- function to POST data to server---------------------------------------------------------------
-function postOrder(contact,products) {
-  fetch(url + "/order", {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json', 
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({contact, products})
+async function postOrder(contact,products) {
+    await fetch(url + "/order", {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json', 
+            'Content-Type': 'application/json'
+            },
+        body: JSON.stringify({contact, products})
     })
     .then(function(res) {
-      if (res.ok) {
-        return res.json();
-      }
+        if (res.ok) {
+          return res.json();
+        }
     })
     .then(function(value) {
         document
-          .getElementById("orderID")
-          .innerText = "N° : " + value.orderId;
-          response = "PostOrder completed";
-          return response;
+            .getElementById("orderID")
+            .innerText = "N° : " + value.orderId;
+            updatePageContent(contact);                           //update order summary
+            deleteKeyInLocalStorage();                            //delete keys
+            displayTotalQty();                                    //clear qty in navbar
+    
+            response = "PostOrder completed " + value.orderId;
+            return response;
     })
     .catch((error) => {                                           // Catch error
-      updateConnectionMessage(error, false);
-      response = "function PosterOrder " + error;
-      return response;
-  });
+        updateConnectionMessage(error, false);
+        response = "PostOrder NOT possible" + error;
+        return response;
+    });
 };
 
 
 //----------------------------------------- function to update order information---------------------------------------------------------------
-function updatePageContent() {
-    let orderinfo = JSON.parse(localStorage.getItem('orderinfo'));  //get back order details from localStorage
-    const orderDate = orderinfo.orderDate;
-    const orderAmount = orderinfo.orderAmount;
-    document.getElementById("orderDate").textContent = orderDate;   // update fields
-    document.getElementById("totalAmount").textContent = "Montant TTC : " + orderAmount + " €";
-
-    let contact = JSON.parse(localStorage.getItem('contact'));      //get back contact details from localStorage
-    const lastName = contact.lastName;
-    const firstName = contact.firstName;
-    const address = contact.address;
-    const city = contact.city;
-    const zip = contact.zip;
-    const email = contact.email;
-                                                                    // update fields
-    document.querySelector(".customerName").innerHTML = lastName + " " + firstName;
-    document.querySelector(".customerAddress").innerHTML = address;
-    document.querySelector(".customercity").innerHTML = zip + " " + city;    
-    document.querySelector(".email").innerHTML = "Confirmation envoyé à " + email;    
+function updatePageContent(contact) {
+    let orderinfo = JSON.parse(localStorage.getItem('orderinfo'));            //get back order details from localStorage
+    document.getElementById("orderDate").textContent = orderinfo.orderDate;   // update fields
+    document.getElementById("totalAmount").textContent = "Montant TTC : " + orderinfo.orderAmount + " €";
+    document.getElementById("deliveryCost").textContent = "Livraison : 0 €";
+    document.getElementById("paymentMeans").textContent = "VISA **** 9876";                                                                    
+    document.querySelector(".customerName").innerHTML = contact.lastName + " " + contact.firstName;
+    document.querySelector(".customerAddress").innerHTML = contact.address;
+    document.querySelector(".customercity").innerHTML = contact.zip + " " + contact.city;    
+    document.querySelector(".email").innerHTML = "Confirmation envoyée à " + contact.email; 
+    
+    var deliveryDate = new Date();
+    deliveryDate.setDate(deliveryDate.getDate() + 7);
+    document.getElementById("deliveryDate").textContent = "Livraison prévu le " + deliveryDate.toLocaleDateString();  
+    return("page updated");   
 };
 
 
 //----------------------------------------- function to delete keys in localStorage---------------------------------------------------------------
-function deleteKeyInLocalStorage(response){
+function deleteKeyInLocalStorage(){
   localStorage.removeItem('totalItemsInCart');
   localStorage.removeItem('itemsInCart');
   localStorage.removeItem('contact');
   localStorage.removeItem('orderinfo');
   localStorage.removeItem('products');
-
-  response = "LocalStorage Keys deleted";
-  return response;
+  return("LocalStorage Keys deleted");
 };
 
 
 //---------------------------------------------Sequence----------------------------------------------------------------
 collectItemsToPost();                                             //prepare data
-updatePageContent();                                              //update order information
-deleteKeyInLocalStorage();                                        //delete keys
-displayTotalQty();                                                //clear qty in navbar
+

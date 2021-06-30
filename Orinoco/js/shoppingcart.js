@@ -130,7 +130,7 @@ function updateGoodsInfo() {
 
 
 //----------------------------------------- check inputs validity-----------------------------------------------------------------
-function checkInputsValidity(response) {
+function checkInputsValidity() {
     let validLastName = false;
     let validFirstName = false;
     let validAddress = false;
@@ -140,14 +140,14 @@ function checkInputsValidity(response) {
 
     document.querySelector('.customer_inputs input[type="button"]').addEventListener("click",function(){
         var valid = true;
-        for(let input of document.querySelectorAll(".customer_inputs input")){
+        for(let input of document.querySelectorAll(".customer_inputs input")){  //basic pre-check of inputs
             valid &= input.reportValidity();
             if(!valid){
                 break;
             }
         };        
         if(valid){
-            var contact = {                                                     //create an array with customer inputs
+            var contact = {                                                     //create an array with customer inputs for localStorage
                 lastName : document.getElementById("lastname").value,
                 firstName : document.getElementById("firstname").value,
                 address : document.getElementById("address").value,
@@ -155,8 +155,8 @@ function checkInputsValidity(response) {
                 zip : document.getElementById("zip").value,
                 email : document.getElementById("email").value
             };    
-            if (isValidName(contact.lastName)){
-                validLastName = true;
+            if (isValidName(contact.lastName)){                                 //check all inputs with regex     
+                validLastName = true;                                           //and show alert of wrong fields
             }else{
                 alert("Nom non valide!")
             }
@@ -178,7 +178,7 @@ function checkInputsValidity(response) {
             if (isValidZip(contact.zip)){
                 validZip = true;
             }else{
-                alert("Code postal non valide, ex : 54300!")
+                alert("Code postal non valide, ex : 54300")
             }
             if (isValidEmail(contact.email)){
                 validEmail = true;
@@ -187,23 +187,22 @@ function checkInputsValidity(response) {
             };
         };        
         if (validLastName && validFirstName && validAddress && validCity && validZip && validEmail) {
-            response = true;
             localStorage.setItem("contact", JSON.stringify(contact));           //set customer inputs to localStorage
-            collectContactdetails(response);
+            collectOrderDetails(true);
+            return("customer inputs validated")
         };
     });
 };
 
 
 //-----------------------------------------function to format contact and other data for the post-----------------------------------------------------------------
-function collectContactdetails (valid) {
+function collectOrderDetails(valid) {
     if (valid === true) {
         var currentTime = new Date();
         let orderinfo = {
             orderDate : "du " + currentTime.toLocaleDateString() + " à " + currentTime.toLocaleTimeString(),
             orderAmount : amount
         };
-
         localStorage.setItem("orderinfo", JSON.stringify(orderinfo));                
         window.location.href = "ordersummary.html";                         //re-direct to the order summary page
     }else {
@@ -214,6 +213,6 @@ function collectContactdetails (valid) {
 
 //---------------------------------------------Sequence----------------------------------------------------------------
 displayTotalQty();
-checkInputsValidity(false);
+checkInputsValidity();
 updateGoodsInfo();
 getItemsFromLocalStorage();
