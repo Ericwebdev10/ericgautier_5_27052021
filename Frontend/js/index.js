@@ -10,13 +10,13 @@ async function connectToServer(){
         return response;
     })
     .then((returnedResponse) => {               // Connection OK
-        updateConnectionMessage(returnedResponse, true);//clear title
+        updateErrorMessage(returnedResponse, true);//clear title
         displayAllDatas(returnedResponse);      //populate template
         displaySpecialOffer(true);              //show banner (true / false)
         displayTitle(true);                     //show title (true / false)
     })
     .catch((error) => {                         // Catch error when server does not repond
-        updateConnectionMessage(error, false);
+        updateErrorMessage(error, false);
     });
 };
 

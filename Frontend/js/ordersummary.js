@@ -27,7 +27,7 @@ function checkDataConsitencyBeforePost(contact,products) {
         return("Data consitency validated");
     }else {
         let error = "données utilisateur corrompues";
-        updateConnectionMessage(error, false);
+        updateErrorMessage(error, false);
         alert(error);
         return("Data corrupted");
     }
@@ -61,7 +61,7 @@ async function postOrder(contact,products) {
             return response;
     })
     .catch((error) => {                                           // Catch error
-        updateConnectionMessage(error, false);
+        updateErrorMessage(error, false);
         response = "PostOrder NOT possible" + error;
         return response;
     });
@@ -70,8 +70,9 @@ async function postOrder(contact,products) {
 
 //----------------------------------------- function to update order information---------------------------------------------------------------
 function updatePageContent(contact) {
-    let orderinfo = JSON.parse(localStorage.getItem('orderinfo'));            //get back order details from localStorage
-    document.getElementById("orderDate").textContent = orderinfo.orderDate;   // update fields
+    let orderinfo = JSON.parse(localStorage.getItem('orderinfo'));                      //get back order details from localStorage
+    document.getElementById("mainTitle").textContent = "Merci pour votre commande";     // update fields
+    document.getElementById("orderDate").textContent = orderinfo.orderDate;             
     document.getElementById("totalAmount").textContent = "Montant TTC : " + orderinfo.orderAmount + " €";
     document.getElementById("deliveryCost").textContent = "Livraison : 0 €";
     document.getElementById("paymentMeans").textContent = "VISA **** 9876";                                                                    

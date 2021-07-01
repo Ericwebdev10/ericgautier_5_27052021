@@ -14,13 +14,13 @@ async function connectToServer(){
         return response;
     })
     .then((returnedResponse) => {               // Connection OK
-        updateConnectionMessage(returnedResponse, true);
+        updateErrorMessage(returnedResponse, true);
         getProductDetails(productId);
         displaySpecialOffer(true);              //show banner (true / false)
 
     })
     .catch((error) => {                         // Catch error when server does not repond
-        updateConnectionMessage(error, false);
+        updateErrorMessage(error, false);
     });
 };
 

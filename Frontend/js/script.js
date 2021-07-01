@@ -1,5 +1,23 @@
 //-----------------------------------------Javascipt for common functions------------------------------------------
 
+//-----------------------------------------functions regex to validate inputs before post-------------------------------------
+function isValidName(sName) {               //https://stackoverflow.com/questions/20690499/concrete-javascript-regex-for-accented-characters-diacritics 
+    return /^[a-zA-Z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u024F\u1E00-\u1EFF .'-]+$/.test(sName);        //https://stackoverflow.com/questions/3659848/how-do-i-include-and-in-this-regular-expressions
+};
+function isValidAddress(sAddress){
+    return /^[0-9/a-zA-Z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u024F\u1E00-\u1EFF .'-]+$/.test(sAddress);
+}
+function isValidCity(sCity){
+    return /^[a-zA-Z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u024F\u1E00-\u1EFF .'-]+$/.test(sCity);    
+}
+function isValidZip(sZip) {
+    return /^[0-9]{5,5}$/.test(sZip);
+};
+function isValidEmail(sEmail) {             //https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+    return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(sEmail);
+};
+
+
 //-----------------------------------------function display banner----------------------------------------------------
 function displaySpecialOffer(visible){
     if (visible === true) {
@@ -25,7 +43,7 @@ function displayTitle(visible){
 
 
 //-----------------------------------------function to handle title error or message-------------------------------------
-function updateConnectionMessage(error, clear){
+function updateErrorMessage(error, clear){
     if (clear === true){
         document.getElementById("mainTitle").innerHTML =    `<h1 class="my-4"></h1>`; // clear default text "connection en cours..."
     }else {
@@ -44,6 +62,7 @@ function updateTotalQty(qtyToAdd) {
         localStorage.setItem("totalItemsInCart", JSON.stringify(totalQuantity + parseInt(qtyToAdd))); 
     };
     displayTotalQty();
+    return("quantity updated in LS");
 };
 
 
@@ -61,22 +80,3 @@ function displayTotalQty() {
                                                             <img src="assets/cart.jpg" height="20" alt="Logo panier" />
                                                         </a>`
 };
-
-
-//-----------------------------------------functions regex to validate inputs before post-------------------------------------
-function isValidName(sName) {
-    return /^[a-zA-Z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u024F\u1E00-\u1EFF .-]+$/.test(sName);
-};
-function isValidAddress(sAddress){
-    return /^[0-9/a-zA-Z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u024F\u1E00-\u1EFF .-]+$/.test(sAddress);
-}
-function isValidCity(sCity){
-    return /^[0-9/a-zA-Z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u024F\u1E00-\u1EFF .-]+$/.test(sCity);
-}
-function isValidZip(sZip) {
-    return /^[0-9]{5,5}$/.test(sZip);
-};
-function isValidEmail(sEmail) {
-    return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(sEmail);
-};
-
