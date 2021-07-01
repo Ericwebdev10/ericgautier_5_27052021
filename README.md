@@ -1,5 +1,7 @@
 # P5 - Orinoco #
 
+Aperçu : https://github.com/Ericwebdev10/ericgautier_5_27052021/tree/main/Overview
+
 ## Création d'un site e-commerce (MVP) avec Bootstrap et JavaScript.
 #### - Definir le plan de test
 #### - Définir et développer l'interface graphique Bootstrap
@@ -14,12 +16,12 @@
 #### Comment démarrer le serveur backend :
 Dans le terminal, 
 - changer de repertoire  ..\backend 	(command "cd backend"), 
-- lancer node server			        (command "node server"),
+- lancer node server			        (command "node server") => Listening on port 3000,
 - ouvrir la page index.html dans le dossier frontend
 #### How to start the backend server :
 Go to the terminal,
 - change the directory to ..\backend 	(command "cd backend"), 
-- start node server			            (command "node server"),
+- start node server			            (command "node server") => Listening on port 3000,
 - Open index.html in the folder frontend
 
 #
@@ -50,9 +52,9 @@ L’application web sera composée de 4 pages :
 #### Produits présentés 
 Dans un premier temps, une seule catégorie de produits sera présentée.
 Choix à faire entre les 3 propositions suivantes :
-- ~~ ours en peluche faits à la main ~~;
-- ~~ caméras vintage ~~;
-- meubles en chêne.
+- ~~ours en peluche faits à la main~~
+- ~~caméras vintage~~
+- meubles en chêne
 
 #### Planification de tests unitaires
 Planifiez une suite de tests unitaires pour couvrir au minimum 80 % de la base de code pour le front-end. Vous devrez formaliser un plan pour atteindre ce résultat, sans obligation d’écrire ces tests Expliquez quelles lignes seront testées, et quels “test cases” seront envisagés.
@@ -77,17 +79,17 @@ description     string
 imageUrl        string
 
 Type de produit     Tableau de personnalisation
-~~Caméras             lentilles~~
-~~Ours en peluche     couleurs~~
-Meubles en chêne    vernis
+- ~~Caméras : lentilles~~
+- ~~Ours en peluche : couleurs~~
+- Meubles en chêne : vernis
 
 #### Technologies utilisées
 HTML, CSS, JavaScript.
 
 #### URL des API
-~~Ours en peluche faits à la main : http://localhost:3000/api/teddies~~
-~~Caméras vintage : http://localhost:3000/api/cameras~~
-Meubles en chêne : http://localhost:3000/api/furniture
+- ~~Ours en peluche faits à la main : http://localhost:3000/api/teddies~~
+- ~~Caméras vintage : http://localhost:3000/api/cameras~~
+- Meubles en chêne : http://localhost:3000/api/furniture
 
 #### Paramètres des API
 Chaque API contient 3 paramètres :
