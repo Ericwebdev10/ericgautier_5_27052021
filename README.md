@@ -3,13 +3,13 @@
 Aperçu : https://github.com/Ericwebdev10/ericgautier_5_27052021/tree/main/Overview
 
 ## Création d'un site e-commerce (MVP) avec Bootstrap et JavaScript.
-#### - Definir le plan de test
+#### - Définir le plan de test
 #### - Définir et développer l'interface graphique Bootstrap
-#### - Se connecter au serveur backend pour récuperer les produits
+#### - Se connecter au serveur backend pour récupérer les produits
 #### - Afficher un produit et ses options puis l'ajouter au panier
-#### - Afficher les produits dans le panier
+#### - Afficher les produits dans le panier et les modifier
 #### - Vérifier les données du formulaire (REGEX)
-#### - Afficher le recapitulatif de commande 
+#### - Afficher le récapitulatif de commande 
 
 # 
 
@@ -57,34 +57,30 @@ Choix à faire entre les 3 propositions suivantes :
 - meubles en chêne
 
 #### Planification de tests unitaires
-Planifiez une suite de tests unitaires pour couvrir au minimum 80 % de la base de code pour le front-end. Vous devrez formaliser un plan pour atteindre ce résultat, sans obligation d’écrire ces tests Expliquez quelles lignes seront testées, et quels “test cases” seront envisagés.
+- Planifiez une suite de tests unitaires pour couvrir au minimum 80 % de la base de code pour le front-end. Vous devrez formaliser un plan pour atteindre ce résultat, sans obligation d’écrire ces tests Expliquez quelles lignes seront testées, et quels “test cases” seront envisagés.
 
 #### Informations complémentaires
-Pour le MVP, la personnalisation du produit ne sera pas fonctionnelle : la page contenant un seul article aura un menu déroulant permettant à l'utilisateur de choisir une option de personnalisation, mais celle-ci ne sera ni envoyée au serveur ni reflétée dans la réponse du serveur.
-
-Le code source devra être indenté et utiliser des commentaires. Il devra également utiliser des fonctions globales.
-
-Concernant l’API, des promesses devront être utilisées pour éviter les rappels.
-
-Les inputs des utilisateurs doivent être validés avant l’envoi à l’API.
+- Pour le MVP, la personnalisation du produit ne sera pas fonctionnelle : la page contenant un seul article aura un menu déroulant permettant à l'utilisateur de choisir une option de personnalisation, mais celle-ci ne sera ni envoyée au serveur ni reflétée dans la réponse du serveur.
+- Le code source devra être indenté et utiliser des commentaires. Il devra également utiliser des fonctions globales.
+- Concernant l’API, des promesses devront être utilisées pour éviter les rappels.
+- Les inputs des utilisateurs doivent être validés avant l’envoi à l’API.
 
 #### Types de données
 Tous les produits possèdent les attributs suivants :
-Chaque type de produit comporte un tableau contenant les string correspondant aux options de personnalisation :
-Champ           Type
-id              ObjectID
-name            string
-price           number
-description     string
-imageUrl        string
+- Champ           - Type
+- id              - ObjectID
+- name            - string
+- price           - number
+- description     - string
+- imageUrl        - string
 
-Type de produit     Tableau de personnalisation
+Chaque type de produit comporte un tableau contenant les string correspondant aux options de personnalisation :
 - ~~Caméras : lentilles~~
 - ~~Ours en peluche : couleurs~~
 - Meubles en chêne : vernis
 
 #### Technologies utilisées
-HTML, CSS, JavaScript.
+- HTML, CSS, JavaScript.
 
 #### URL des API
 - ~~Ours en peluche faits à la main : http://localhost:3000/api/teddies~~
@@ -98,7 +94,7 @@ Chaque API contient 3 paramètres :
 - POST    /order      Requête JSON contenant un objet de contact et un tableau de produits Retourne l'objet contact, le tableau produits et order_id (string)
 
 #### Validation des données
-Pour les routes POST, l’objet contact envoyé au serveur doit contenir les champs firstName, lastName, address, city et email. Le tableau des produits envoyé au backend doit être un array de strings product_id. Les types de ces champs et leur présence doivent être validés avant l’envoi des données au serveur.
+- Pour les routes POST, l’objet contact envoyé au serveur doit contenir les champs firstName, lastName, address, city et email. Le tableau des produits envoyé au backend doit être un array de strings product_id. Les types de ces champs et leur présence doivent être validés avant l’envoi des données au serveur.
 
 #### Repository GitHub à cloner
 https://github.com/OpenClassrooms-Student-Center/JWDP5.git
