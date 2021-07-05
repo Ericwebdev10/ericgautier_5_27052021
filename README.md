@@ -29,15 +29,15 @@ Go to the terminal,
 ### MVP - Spécifications fonctionnelles et techniques ORINOCO
 
 #### SOMMAIRE
-- Architecture générale 1
-- Produits présentés 2
-- Planification de tests unitaires 2
-- Informations complémentaires 2
-- Types de données 3
-- Technologies utilisées 3
-- URL des API 4
-- Paramètres des API 4
-- Repository GitHub à cloner 5
+- Architecture générale
+- Produits présentés
+- Planification de tests unitaires
+- Informations complémentaires
+- Types de données
+- Technologies utilisées
+- URL des API
+- Paramètres des API
+
 
 #
 
@@ -95,6 +95,3 @@ Chaque API contient 3 paramètres :
 
 #### Validation des données
 - Pour les routes POST, l’objet contact envoyé au serveur doit contenir les champs firstName, lastName, address, city et email. Le tableau des produits envoyé au backend doit être un array de strings product_id. Les types de ces champs et leur présence doivent être validés avant l’envoi des données au serveur.
-
-#### Repository GitHub à cloner
-https://github.com/OpenClassrooms-Student-Center/JWDP5.git
