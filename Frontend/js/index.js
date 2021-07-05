@@ -4,9 +4,9 @@
 async function connectToServer(){
     await fetch(url).then((response) => {
         if (response.status === 200) {          //server response is OK = 200 
-       }else{                                   //server response is NOT OK != 200
+        }else{                                  //server response is NOT OK != 200
             throw new Error(response.status + " " + response.statusText);
-         }
+        }
         return response;
     })
     .then((returnedResponse) => {               // Connection OK

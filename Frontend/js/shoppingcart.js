@@ -3,20 +3,21 @@ let amount = 0;
 
 //----------------------------------------- function to get localStorage content---------------------------------------------------------------
 function getItemsFromLocalStorage() {
-    let i = 0;
     arrayOfItemsInCart = JSON.parse(localStorage.getItem('itemsInCart'));   //get back items array from localStorage
     if (arrayOfItemsInCart === null || arrayOfItemsInCart.length === 0) {   //case localStorage not exist or empty
         document.querySelector(".Items").innerHTML += `<h2>Le panier est vide</h2>`;
         document.querySelector(".itemsAmount").textContent = "0 €";
         document.querySelector(".itemsSubTotalAmount").textContent = "0 €";
+        document.querySelector(".buttonVisibility").classList.add('invisible');
+        document.querySelector(".buttonVisibility2").classList.add('invisible');
         return("cart is empty");
     } else{                                                                 //case localStorage has 1 or more items
         arrayOfItemsInCart.forEach(itemsInCart => {                         //loop to add all items from localStorage
-            i++;
-            cartIndex = i;
             createShoppingCartCards(itemsInCart)                            //call create SC cards
-            return("cart is NOT empty");
         });
+        document.querySelector(".buttonVisibility").classList.remove('invisible');
+        document.querySelector(".buttonVisibility2").classList.remove('invisible');
+        return("cart is NOT empty");
     };
 };
 

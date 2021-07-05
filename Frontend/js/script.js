@@ -78,5 +78,5 @@ function displayTotalQty() {
                                                             Panier (${totalquantity})
                                                             <span class="sr-only">(current)</span>
                                                             <img src="assets/cart.jpg" height="20" alt="Logo panier" />
-                                                        </a>`
+                                                            </a>`
 };
